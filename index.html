@@ -1168,11 +1168,14 @@
 
     <script>
         // ============================================================
-        // DATA
+        // DATA - SỬ DỤNG LOCALSTORAGE
         // ============================================================
         let books = [];
-        let currentCampus = 'all';
         let nextId = 1;
+        let currentCampus = 'all';
+
+        const STORAGE_KEY = 'library_books';
+        const ID_KEY = 'library_nextId';
 
         const campusLabels = {
             main: 'Chính (THCS)',
@@ -1191,6 +1194,28 @@
             borrowed: 'Đang mượn',
             maintenance: 'Bảo trì'
         };
+
+        // ============================================================
+        // LOCAL STORAGE FUNCTIONS
+        // ============================================================
+        function loadFromStorage() {
+            const storedBooks = localStorage.getItem(STORAGE_KEY);
+            const storedId = localStorage.getItem(ID_KEY);
+
+            if (storedBooks) {
+                books = JSON.parse(storedBooks);
+                nextId = storedId ? parseInt(storedId) : (books.length > 0 ? Math.max(...books.map(b => b.id)) + 1 : 1);
+            } else {
+                // Seed data if first time
+                seedData();
+                saveToStorage();
+            }
+        }
+
+        function saveToStorage() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
+            localStorage.setItem(ID_KEY, String(nextId));
+        }
 
         // ============================================================
         // SEED DATA
@@ -1219,7 +1244,7 @@
                     year: 2023, quantity: 5, campus: 'main', status: 'maintenance', description: 'SGK GDCD 7' },
             ];
 
-            sample.forEach((b, i) => {
+            sample.forEach((b) => {
                 books.push({ id: nextId++, ...b });
             });
         }
@@ -1536,6 +1561,7 @@
                         status,
                         description
                     };
+                    saveToStorage();
                     showToast('✅ Đã cập nhật sách thành công!', 'success');
                 }
             } else {
@@ -1553,6 +1579,7 @@
                     description
                 };
                 books.push(newBook);
+                saveToStorage();
                 showToast('📚 Đã thêm sách mới thành công!', 'success');
             }
 
@@ -1570,6 +1597,7 @@
             if (idx !== -1) {
                 const title = books[idx].title;
                 books.splice(idx, 1);
+                saveToStorage();
                 showToast(`🗑️ Đã xóa sách "${title}"`, 'info');
                 renderHome();
                 renderBooks();
@@ -1581,7 +1609,7 @@
         // ============================================================
         function init() {
             document.getElementById('currentDate').textContent = getToday();
-            seedData();
+            loadFromStorage(); // Load dữ liệu từ localStorage
             renderHome();
             renderBooks();
 
