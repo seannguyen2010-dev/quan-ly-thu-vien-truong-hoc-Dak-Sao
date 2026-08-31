@@ -3,19 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>📚 Quản Lý Thư Viện Trường Học</title>
+    <title id="appTitle">📚 Quản Lý Thư Viện Trường Học</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet" />
     <style>
         /* ===== RESET & BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Quicksand', sans-serif;
             background: #f0f7fb;
@@ -23,7 +18,6 @@
             min-height: 100vh;
             display: flex;
         }
-
         /* ===== SIDEBAR ===== */
         .sidebar {
             width: 250px;
@@ -38,7 +32,6 @@
             flex-shrink: 0;
             transition: all 0.3s ease;
         }
-
         .sidebar .logo {
             display: flex;
             align-items: center;
@@ -46,12 +39,10 @@
             margin-bottom: 40px;
             color: #fff;
         }
-
         .sidebar .logo i {
             font-size: 32px;
             color: #fcd34d;
         }
-
         .sidebar .logo h2 {
             font-size: 20px;
             font-weight: 700;
@@ -61,7 +52,6 @@
         .sidebar .logo h2 span {
             color: #fcd34d;
         }
-
         .sidebar .nav-item {
             display: flex;
             align-items: center;
@@ -76,30 +66,25 @@
             transition: all 0.25s ease;
             text-decoration: none;
         }
-
         .sidebar .nav-item i {
             width: 24px;
             font-size: 18px;
             text-align: center;
         }
-
         .sidebar .nav-item:hover {
             background: rgba(255, 255, 255, 0.08);
             color: #fff;
         }
-
         .sidebar .nav-item.active {
             background: rgba(252, 211, 77, 0.18);
             color: #fcd34d;
             box-shadow: inset 3px 0 0 #fcd34d;
         }
-
         .sidebar .campus-list {
             margin-top: 30px;
             padding-top: 24px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
-
         .sidebar .campus-list .label {
             font-size: 12px;
             text-transform: uppercase;
@@ -108,7 +93,6 @@
             margin-bottom: 12px;
             padding-left: 6px;
         }
-
         .sidebar .campus-item {
             display: flex;
             align-items: center;
@@ -122,24 +106,20 @@
             transition: all 0.2s ease;
             margin-bottom: 2px;
         }
-
         .sidebar .campus-item:hover {
             background: rgba(255, 255, 255, 0.06);
             color: #fff;
         }
-
         .sidebar .campus-item.active {
             background: rgba(255, 255, 255, 0.10);
             color: #fff;
         }
-
         .sidebar .campus-item .dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
             flex-shrink: 0;
         }
-
         .sidebar .campus-item .badge {
             margin-left: auto;
             background: rgba(255, 255, 255, 0.12);
@@ -149,14 +129,12 @@
             font-weight: 600;
             color: #e2e8f0;
         }
-
         /* ===== MAIN CONTENT ===== */
         .main {
             flex: 1;
             padding: 30px 35px;
             overflow-y: auto;
         }
-
         /* ===== TOP BAR ===== */
         .topbar {
             display: flex;
@@ -166,7 +144,6 @@
             flex-wrap: wrap;
             gap: 16px;
         }
-
         .topbar .greeting h1 {
             font-size: 26px;
             font-weight: 700;
@@ -182,13 +159,12 @@
             font-size: 14px;
             margin-top: 2px;
         }
-
         .topbar .actions {
             display: flex;
             gap: 12px;
             align-items: center;
+            flex-wrap: wrap;
         }
-
         .topbar .actions .date-badge {
             background: #fff;
             padding: 8px 18px;
@@ -201,12 +177,9 @@
             align-items: center;
             gap: 8px;
         }
-
         .topbar .actions .date-badge i {
             color: #f59e0b;
         }
-
-        /* ===== USER INFO ===== */
         .user-info {
             background: #fff;
             padding: 6px 16px 6px 20px;
@@ -238,7 +211,6 @@
         .user-info .logout-btn:hover {
             background: #fee2e2;
         }
-
         /* ===== STATS CARDS ===== */
         .stats-grid {
             display: grid;
@@ -246,7 +218,6 @@
             gap: 20px;
             margin-bottom: 35px;
         }
-
         .stat-card {
             background: #fff;
             border-radius: 20px;
@@ -258,12 +229,10 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             border-left: 5px solid;
         }
-
         .stat-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
         }
-
         .stat-card .icon {
             width: 52px;
             height: 52px;
@@ -275,7 +244,6 @@
             color: #fff;
             flex-shrink: 0;
         }
-
         .stat-card .info h3 {
             font-size: 26px;
             font-weight: 700;
@@ -288,32 +256,14 @@
             color: #64748b;
             margin-top: 2px;
         }
-
-        .stat-card:nth-child(1) {
-            border-left-color: #3b82f6;
-        }
-        .stat-card:nth-child(1) .icon {
-            background: linear-gradient(135deg, #3b82f6, #60a5fa);
-        }
-        .stat-card:nth-child(2) {
-            border-left-color: #f59e0b;
-        }
-        .stat-card:nth-child(2) .icon {
-            background: linear-gradient(135deg, #f59e0b, #fbbf24);
-        }
-        .stat-card:nth-child(3) {
-            border-left-color: #10b981;
-        }
-        .stat-card:nth-child(3) .icon {
-            background: linear-gradient(135deg, #10b981, #34d399);
-        }
-        .stat-card:nth-child(4) {
-            border-left-color: #8b5cf6;
-        }
-        .stat-card:nth-child(4) .icon {
-            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
-        }
-
+        .stat-card:nth-child(1) { border-left-color: #3b82f6; }
+        .stat-card:nth-child(1) .icon { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+        .stat-card:nth-child(2) { border-left-color: #f59e0b; }
+        .stat-card:nth-child(2) .icon { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .stat-card:nth-child(3) { border-left-color: #10b981; }
+        .stat-card:nth-child(3) .icon { background: linear-gradient(135deg, #10b981, #34d399); }
+        .stat-card:nth-child(4) { border-left-color: #8b5cf6; }
+        .stat-card:nth-child(4) .icon { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
         /* ===== SECTION HEADER ===== */
         .section-header {
             display: flex;
@@ -323,7 +273,6 @@
             flex-wrap: wrap;
             gap: 12px;
         }
-
         .section-header h2 {
             font-size: 22px;
             font-weight: 700;
@@ -333,7 +282,6 @@
             color: #f59e0b;
             margin-right: 8px;
         }
-
         .btn {
             display: inline-flex;
             align-items: center;
@@ -348,60 +296,18 @@
             font-family: 'Quicksand', sans-serif;
             text-decoration: none;
         }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #0b2a3e, #1a4b6d);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(11, 42, 62, 0.25);
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(11, 42, 62, 0.30);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #10b981, #34d399);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
-        }
-        .btn-success:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.30);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, #ef4444, #f87171);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.20);
-        }
-        .btn-danger:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, #f59e0b, #fbbf24);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
-        }
-        .btn-warning:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid #cbd5e1;
-            color: #1e2b3a;
-        }
-        .btn-outline:hover {
-            border-color: #0b2a3e;
-            background: rgba(11, 42, 62, 0.04);
-        }
-
-        .btn-sm {
-            padding: 6px 16px;
-            font-size: 13px;
-        }
-
+        .btn-primary { background: linear-gradient(135deg, #0b2a3e, #1a4b6d); color: #fff; box-shadow: 0 4px 12px rgba(11,42,62,0.25); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(11,42,62,0.30); }
+        .btn-success { background: linear-gradient(135deg, #10b981, #34d399); color: #fff; box-shadow: 0 4px 12px rgba(16,185,129,0.25); }
+        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(16,185,129,0.30); }
+        .btn-danger { background: linear-gradient(135deg, #ef4444, #f87171); color: #fff; box-shadow: 0 4px 12px rgba(239,68,68,0.20); }
+        .btn-danger:hover { transform: translateY(-2px); }
+        .btn-warning { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #fff; box-shadow: 0 4px 12px rgba(245,158,11,0.25); }
+        .btn-warning:hover { transform: translateY(-2px); }
+        .btn-outline { background: transparent; border: 2px solid #cbd5e1; color: #1e2b3a; }
+        .btn-outline:hover { border-color: #0b2a3e; background: rgba(11,42,62,0.04); }
+        .btn-sm { padding: 6px 16px; font-size: 13px; }
+        .btn-xs { padding: 4px 12px; font-size: 12px; }
         /* ===== FILTER BAR ===== */
         .filter-bar {
             display: flex;
@@ -414,19 +320,16 @@
             margin-bottom: 24px;
             align-items: center;
         }
-
         .filter-bar .filter-group {
             display: flex;
             align-items: center;
             gap: 8px;
         }
-
         .filter-bar .filter-group label {
             font-weight: 600;
             font-size: 14px;
             color: #475569;
         }
-
         .filter-bar select,
         .filter-bar input {
             padding: 8px 14px;
@@ -439,12 +342,10 @@
             transition: border 0.2s ease;
             outline: none;
         }
-
         .filter-bar select:focus,
         .filter-bar input:focus {
             border-color: #0b2a3e;
         }
-
         .filter-bar .search-box {
             display: flex;
             align-items: center;
@@ -468,7 +369,6 @@
         .filter-bar .search-box i {
             color: #94a3b8;
         }
-
         /* ===== TABLE ===== */
         .table-wrapper {
             background: #fff;
@@ -478,17 +378,14 @@
             overflow: hidden;
             overflow-x: auto;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
         }
-
         table thead {
             background: #f1f6fa;
         }
-
         table thead th {
             padding: 16px 18px;
             text-align: left;
@@ -499,22 +396,18 @@
             letter-spacing: 0.3px;
             white-space: nowrap;
         }
-
         table tbody td {
             padding: 14px 18px;
             border-bottom: 1px solid #f1f5f9;
             color: #1e2b3a;
             vertical-align: middle;
         }
-
         table tbody tr:hover {
             background: #fafcff;
         }
-
         table tbody tr:last-child td {
             border-bottom: none;
         }
-
         .badge-campus {
             display: inline-block;
             padding: 4px 14px;
@@ -523,17 +416,9 @@
             font-weight: 700;
             color: #fff;
         }
-
-        .badge-campus.main {
-            background: #3b82f6;
-        }
-        .badge-campus.branch1 {
-            background: #f59e0b;
-        }
-        .badge-campus.branch2 {
-            background: #10b981;
-        }
-
+        .badge-campus.main { background: #3b82f6; }
+        .badge-campus.branch1 { background: #f59e0b; }
+        .badge-campus.branch2 { background: #10b981; }
         .badge-status {
             display: inline-block;
             padding: 3px 14px;
@@ -541,31 +426,21 @@
             font-size: 12px;
             font-weight: 600;
         }
-        .badge-status.available {
-            background: #d1fae5;
-            color: #065f46;
-        }
-        .badge-status.borrowed {
-            background: #fef3c7;
-            color: #92400e;
-        }
-        .badge-status.maintenance {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
+        .badge-status.available { background: #d1fae5; color: #065f46; }
+        .badge-status.borrowed { background: #fef3c7; color: #92400e; }
+        .badge-status.maintenance { background: #fee2e2; color: #991b1b; }
+        .badge-status.da-tra { background: #dbeafe; color: #1e40af; }
+        .badge-status.dang-muon { background: #fef3c7; color: #92400e; }
         .action-btns {
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
         }
-
         .action-btns .btn {
             padding: 5px 12px;
             font-size: 13px;
             border-radius: 8px;
         }
-
         /* ===== MODAL ===== */
         .modal-overlay {
             display: none;
@@ -578,11 +453,9 @@
             justify-content: center;
             animation: fadeIn 0.25s ease;
         }
-
         .modal-overlay.show {
             display: flex;
         }
-
         .modal {
             background: #fff;
             border-radius: 28px;
@@ -594,23 +467,14 @@
             overflow-y: auto;
             animation: slideUp 0.3s ease;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px) scale(0.96); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 24px;
         }
-
         .modal-header h3 {
             font-size: 22px;
             font-weight: 700;
@@ -620,7 +484,6 @@
             color: #f59e0b;
             margin-right: 10px;
         }
-
         .modal-close {
             background: none;
             border: none;
@@ -632,11 +495,9 @@
         .modal-close:hover {
             color: #ef4444;
         }
-
         .form-group {
             margin-bottom: 18px;
         }
-
         .form-group label {
             display: block;
             font-weight: 600;
@@ -644,12 +505,10 @@
             color: #1e2b3a;
             margin-bottom: 5px;
         }
-
         .form-group label .required {
             color: #ef4444;
             margin-left: 2px;
         }
-
         .form-group input,
         .form-group select,
         .form-group textarea {
@@ -664,24 +523,20 @@
             background: #fafcff;
             outline: none;
         }
-
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             border-color: #0b2a3e;
         }
-
         .form-group textarea {
             resize: vertical;
             min-height: 70px;
         }
-
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
         }
-
         .modal-footer {
             display: flex;
             justify-content: flex-end;
@@ -690,7 +545,6 @@
             padding-top: 18px;
             border-top: 1px solid #f1f5f9;
         }
-
         /* ===== EMPTY STATE ===== */
         .empty-state {
             text-align: center;
@@ -706,138 +560,45 @@
             font-size: 16px;
             font-weight: 500;
         }
-
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
-            .sidebar {
-                width: 200px;
-                padding: 20px 14px;
-            }
-            .sidebar .logo h2 {
-                font-size: 16px;
-            }
-            .main {
-                padding: 20px;
-            }
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+            .sidebar { width: 200px; padding: 20px 14px; }
+            .sidebar .logo h2 { font-size: 16px; }
+            .main { padding: 20px; }
+            .form-row { grid-template-columns: 1fr; }
         }
-
         @media (max-width: 700px) {
-            body {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                min-height: auto;
-                height: auto;
-                position: relative;
-                padding: 16px 20px;
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                gap: 10px 20px;
-            }
-            .sidebar .logo {
-                margin-bottom: 0;
-                flex: 1;
-            }
-            .sidebar .logo h2 {
-                font-size: 18px;
-            }
-            .sidebar .nav-item {
-                padding: 8px 14px;
-                font-size: 14px;
-            }
-            .sidebar .campus-list {
-                margin-top: 0;
-                padding-top: 0;
-                border-top: none;
-                display: flex;
-                flex-wrap: wrap;
-                gap: 4px;
-            }
-            .sidebar .campus-list .label {
-                display: none;
-            }
-            .sidebar .campus-item {
-                padding: 6px 12px;
-                font-size: 13px;
-            }
-            .main {
-                padding: 16px;
-            }
-            .stats-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-            .stat-card {
-                padding: 16px;
-            }
-            .stat-card .info h3 {
-                font-size: 20px;
-            }
-            .topbar .greeting h1 {
-                font-size: 20px;
-            }
-            .modal {
-                padding: 20px;
-            }
-            .filter-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .filter-bar .filter-group {
-                flex-wrap: wrap;
-            }
-            table thead th,
-            table tbody td {
-                padding: 10px 12px;
-                font-size: 13px;
-            }
-            .action-btns .btn {
-                font-size: 12px;
-                padding: 4px 10px;
-            }
-            .user-info {
-                padding: 4px 12px 4px 16px;
-                font-size: 13px;
-            }
-            .topbar .actions {
-                flex-wrap: wrap;
-            }
+            body { flex-direction: column; }
+            .sidebar { width: 100%; min-height: auto; height: auto; position: relative; padding: 16px 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; }
+            .sidebar .logo { margin-bottom: 0; flex: 1; }
+            .sidebar .logo h2 { font-size: 18px; }
+            .sidebar .nav-item { padding: 8px 14px; font-size: 14px; }
+            .sidebar .campus-list { margin-top: 0; padding-top: 0; border-top: none; display: flex; flex-wrap: wrap; gap: 4px; }
+            .sidebar .campus-list .label { display: none; }
+            .sidebar .campus-item { padding: 6px 12px; font-size: 13px; }
+            .main { padding: 16px; }
+            .stats-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+            .stat-card { padding: 16px; }
+            .stat-card .info h3 { font-size: 20px; }
+            .topbar .greeting h1 { font-size: 20px; }
+            .modal { padding: 20px; }
+            .filter-bar { flex-direction: column; align-items: stretch; }
+            .filter-bar .filter-group { flex-wrap: wrap; }
+            table thead th, table tbody td { padding: 10px 12px; font-size: 13px; }
+            .action-btns .btn { font-size: 12px; padding: 4px 10px; }
+            .user-info { padding: 4px 12px 4px 16px; font-size: 13px; }
+            .topbar .actions { flex-wrap: wrap; }
         }
-
         @media (max-width: 480px) {
-            .sidebar .nav-item span {
-                display: none;
-            }
-            .sidebar .nav-item i {
-                font-size: 20px;
-            }
-            .sidebar .campus-item span:not(.dot) {
-                display: none;
-            }
-            .sidebar .campus-item .badge {
-                display: none;
-            }
+            .sidebar .nav-item span { display: none; }
+            .sidebar .nav-item i { font-size: 20px; }
+            .sidebar .campus-item span:not(.dot) { display: none; }
+            .sidebar .campus-item .badge { display: none; }
         }
-
         /* ===== SCROLLBAR ===== */
-        .sidebar::-webkit-scrollbar,
-        .modal::-webkit-scrollbar {
-            width: 4px;
-        }
-        .sidebar::-webkit-scrollbar-track,
-        .modal::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .sidebar::-webkit-scrollbar-thumb,
-        .modal::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-        }
-
+        .sidebar::-webkit-scrollbar, .modal::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-track, .modal::-webkit-scrollbar-track { background: transparent; }
+        .sidebar::-webkit-scrollbar-thumb, .modal::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
         /* ===== TOAST ===== */
         .toast-container {
             position: fixed;
@@ -848,7 +609,6 @@
             flex-direction: column;
             gap: 10px;
         }
-
         .toast {
             padding: 14px 24px;
             border-radius: 16px;
@@ -863,22 +623,10 @@
             min-width: 260px;
             max-width: 400px;
         }
-
-        .toast.success {
-            background: linear-gradient(135deg, #10b981, #34d399);
-        }
-        .toast.error {
-            background: linear-gradient(135deg, #ef4444, #f87171);
-        }
-        .toast.info {
-            background: linear-gradient(135deg, #3b82f6, #60a5fa);
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(40px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
+        .toast.success { background: linear-gradient(135deg, #10b981, #34d399); }
+        .toast.error { background: linear-gradient(135deg, #ef4444, #f87171); }
+        .toast.info { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
         .toast .toast-close {
             background: none;
             border: none;
@@ -888,10 +636,7 @@
             margin-left: auto;
             padding: 0 4px;
         }
-        .toast .toast-close:hover {
-            color: #fff;
-        }
-
+        .toast .toast-close:hover { color: #fff; }
         /* ===== LOGIN OVERLAY ===== */
         #loginOverlay {
             position: fixed;
@@ -904,9 +649,7 @@
             z-index: 9999;
             animation: fadeIn 0.3s ease;
         }
-        #loginOverlay.show {
-            display: flex;
-        }
+        #loginOverlay.show { display: flex; }
         .login-box {
             background: #fff;
             border-radius: 32px;
@@ -979,6 +722,44 @@
             text-align: center;
             min-height: 24px;
         }
+        /* ===== BORROW CARD ===== */
+        .borrow-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 18px 22px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            margin-bottom: 16px;
+            border-left: 4px solid #3b82f6;
+        }
+        .borrow-card .borrow-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 30px;
+            align-items: center;
+        }
+        .borrow-card .borrow-info .field {
+            font-size: 14px;
+        }
+        .borrow-card .borrow-info .field strong {
+            color: #0b2a3e;
+        }
+        .borrow-card .borrow-actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 8px;
+        }
+        .text-muted {
+            color: #64748b;
+            font-size: 13px;
+        }
+        .text-success {
+            color: #10b981;
+        }
+        .text-danger {
+            color: #ef4444;
+        }
+        .mt-2 { margin-top: 8px; }
+        .mb-2 { margin-bottom: 8px; }
     </style>
 </head>
 <body>
@@ -988,7 +769,7 @@
         <div class="login-box">
             <div class="logo">
                 <i class="fas fa-book-open"></i>
-                <h2>Thư Viện School</h2>
+                <h2 id="loginAppName">Thư Viện School</h2>
                 <p>Đăng nhập để tiếp tục</p>
             </div>
             <form id="loginForm" onsubmit="login(event)">
@@ -1010,7 +791,7 @@
     <aside class="sidebar" id="sidebar">
         <div class="logo">
             <i class="fas fa-book-open"></i>
-            <h2>Thư Viện <span>School</span></h2>
+            <h2 id="sidebarAppName">Thư Viện <span>School</span></h2>
         </div>
 
         <nav>
@@ -1022,9 +803,13 @@
                 <i class="fas fa-books"></i>
                 <span>Quản lý sách</span>
             </div>
+            <div class="nav-item" data-page="borrow">
+                <i class="fas fa-hand-holding-heart"></i>
+                <span>Mượn/Trả sách</span>
+            </div>
             <div class="nav-item" data-page="settings" id="settingsNav" style="display:none;">
                 <i class="fas fa-cog"></i>
-                <span>Đổi mật khẩu</span>
+                <span>Cài đặt</span>
             </div>
         </nav>
 
@@ -1078,7 +863,6 @@
 
         <!-- ===== PAGE: HOME ===== -->
         <div id="page-home">
-            <!-- STATS -->
             <div class="stats-grid" id="statsGrid">
                 <div class="stat-card">
                     <div class="icon"><i class="fas fa-book"></i></div>
@@ -1110,7 +894,6 @@
                 </div>
             </div>
 
-            <!-- CAMPUS DETAIL CARDS -->
             <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:16px; margin-bottom:28px;">
                 <div style="background:#fff; border-radius:16px; padding:18px 22px; box-shadow:0 2px 12px rgba(0,0,0,0.04); border-left:5px solid #3b82f6;">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -1144,7 +927,6 @@
                 </div>
             </div>
 
-            <!-- RECENT BOOKS -->
             <div class="section-header">
                 <h2><i class="fas fa-list-ul"></i> Danh sách sách gần đây</h2>
                 <button class="btn btn-primary btn-sm" onclick="navigateTo('books')">
@@ -1154,17 +936,9 @@
             <div class="table-wrapper">
                 <table>
                     <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Tên sách</th>
-                            <th>Tác giả</th>
-                            <th>Điểm trường</th>
-                            <th>Trạng thái</th>
-                        </tr>
+                        <tr><th>#</th><th>Tên sách</th><th>Tác giả</th><th>Điểm trường</th><th>Trạng thái</th></tr>
                     </thead>
-                    <tbody id="recentBooksTable">
-                        <!-- Rendered by JS -->
-                    </tbody>
+                    <tbody id="recentBooksTable"></tbody>
                 </table>
             </div>
         </div>
@@ -1177,8 +951,6 @@
                     <i class="fas fa-plus"></i> Thêm sách mới
                 </button>
             </div>
-
-            <!-- FILTER -->
             <div class="filter-bar">
                 <div class="filter-group">
                     <label><i class="fas fa-filter"></i> Lọc:</label>
@@ -1205,36 +977,62 @@
                     <i class="fas fa-undo"></i> Đặt lại
                 </button>
             </div>
-
-            <!-- TABLE -->
             <div class="table-wrapper">
                 <table>
                     <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Tên sách</th>
-                            <th>Tác giả</th>
-                            <th>ISBN</th>
-                            <th>NXB</th>
-                            <th>Điểm trường</th>
-                            <th>Số lượng</th>
-                            <th>Trạng thái</th>
-                            <th>Thao tác</th>
-                        </tr>
+                        <tr><th>#</th><th>Tên sách</th><th>Tác giả</th><th>ISBN</th><th>NXB</th><th>Điểm trường</th><th>Số lượng</th><th>Trạng thái</th><th>Thao tác</th></tr>
                     </thead>
-                    <tbody id="booksTable">
-                        <!-- Rendered by JS -->
-                    </tbody>
+                    <tbody id="booksTable"></tbody>
                 </table>
             </div>
+        </div>
+
+        <!-- ===== PAGE: BORROW ===== -->
+        <div id="page-borrow" style="display:none;">
+            <div class="section-header">
+                <h2><i class="fas fa-hand-holding-heart"></i> Mượn / Trả sách</h2>
+                <button class="btn btn-success" id="borrowBtn" onclick="openBorrowModal()">
+                    <i class="fas fa-plus"></i> Mượn sách
+                </button>
+            </div>
+            <div class="filter-bar" style="margin-bottom:16px;">
+                <div class="filter-group">
+                    <label>Trạng thái:</label>
+                    <select id="borrowFilterStatus">
+                        <option value="all">Tất cả</option>
+                        <option value="dang-muon">Đang mượn</option>
+                        <option value="da-tra">Đã trả</option>
+                    </select>
+                </div>
+                <div class="search-box" style="margin-left:auto;">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="borrowSearch" placeholder="Tìm theo sách, người mượn..." />
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="resetBorrowFilters()">
+                    <i class="fas fa-undo"></i> Đặt lại
+                </button>
+            </div>
+            <div id="borrowList"></div>
         </div>
 
         <!-- ===== PAGE: SETTINGS ===== -->
         <div id="page-settings" style="display:none;">
             <div class="section-header">
-                <h2><i class="fas fa-cog"></i> Đổi mật khẩu</h2>
+                <h2><i class="fas fa-cog"></i> Cài đặt</h2>
             </div>
-            <div style="background:#fff; border-radius:20px; padding:30px; max-width:500px; box-shadow:0 4px 20px rgba(0,0,0,0.04);">
+            <div style="background:#fff; border-radius:20px; padding:30px; max-width:600px; box-shadow:0 4px 20px rgba(0,0,0,0.04); margin-bottom:24px;">
+                <h3 style="margin-bottom:16px;">Tên ứng dụng</h3>
+                <form id="changeAppNameForm" onsubmit="changeAppName(event)">
+                    <div class="form-group">
+                        <label>Tên hiển thị</label>
+                        <input type="text" id="appNameInput" placeholder="Nhập tên ứng dụng" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Cập nhật</button>
+                </form>
+                <div id="appNameMsg" style="margin-top:12px; font-weight:600;"></div>
+            </div>
+            <div style="background:#fff; border-radius:20px; padding:30px; max-width:600px; box-shadow:0 4px 20px rgba(0,0,0,0.04);">
+                <h3 style="margin-bottom:16px;">Đổi mật khẩu quản trị</h3>
                 <form id="changePasswordForm" onsubmit="changePassword(event)">
                     <div class="form-group">
                         <label>Mật khẩu hiện tại</label>
@@ -1256,16 +1054,15 @@
 
     </main>
 
-    <!-- ===== MODAL ===== -->
+    <!-- ===== MODAL: Sách ===== -->
     <div class="modal-overlay" id="bookModal">
         <div class="modal">
             <div class="modal-header">
                 <h3><i class="fas fa-book"></i> <span id="modalTitle">Thêm sách mới</span></h3>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <button class="modal-close" onclick="closeModal('bookModal')">&times;</button>
             </div>
             <form id="bookForm" onsubmit="saveBook(event)">
                 <input type="hidden" id="editId" value="" />
-
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tên sách <span class="required">*</span></label>
@@ -1276,7 +1073,6 @@
                         <input type="text" id="fAuthor" placeholder="Nhập tên tác giả" required />
                     </div>
                 </div>
-
                 <div class="form-row">
                     <div class="form-group">
                         <label>ISBN</label>
@@ -1287,7 +1083,6 @@
                         <input type="text" id="fPublisher" placeholder="Nhà xuất bản" />
                     </div>
                 </div>
-
                 <div class="form-row">
                     <div class="form-group">
                         <label>Năm xuất bản</label>
@@ -1298,7 +1093,6 @@
                         <input type="number" id="fQuantity" placeholder="Số lượng" min="1" required />
                     </div>
                 </div>
-
                 <div class="form-row">
                     <div class="form-group">
                         <label>Điểm trường <span class="required">*</span></label>
@@ -1317,17 +1111,57 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label>Mô tả / Ghi chú</label>
                     <textarea id="fDescription" placeholder="Nhập mô tả hoặc ghi chú về sách..."></textarea>
                 </div>
-
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline" onclick="closeModal()">Hủy</button>
+                    <button type="button" class="btn btn-outline" onclick="closeModal('bookModal')">Hủy</button>
                     <button type="submit" class="btn btn-primary" id="modalSubmitBtn">
                         <i class="fas fa-save"></i> Lưu sách
                     </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== MODAL: Mượn sách ===== -->
+    <div class="modal-overlay" id="borrowModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-hand-holding-heart"></i> <span id="borrowModalTitle">Mượn sách</span></h3>
+                <button class="modal-close" onclick="closeModal('borrowModal')">&times;</button>
+            </div>
+            <form id="borrowForm" onsubmit="borrowBook(event)">
+                <div class="form-group">
+                    <label>Chọn sách <span class="required">*</span></label>
+                    <select id="borrowBookSelect" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Số lượng mượn <span class="required">*</span></label>
+                    <input type="number" id="borrowQuantity" placeholder="Số lượng" min="1" required />
+                </div>
+                <div class="form-group">
+                    <label>Người mượn <span class="required">*</span></label>
+                    <input type="text" id="borrowerName" placeholder="Tên người mượn" required />
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Ngày mượn <span class="required">*</span></label>
+                        <input type="date" id="borrowDate" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày trả dự kiến <span class="required">*</span></label>
+                        <input type="date" id="returnDate" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Ghi chú</label>
+                    <textarea id="borrowNote" placeholder="Ghi chú (nếu có)"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('borrowModal')">Hủy</button>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Xác nhận mượn</button>
                 </div>
             </form>
         </div>
@@ -1342,20 +1176,30 @@
         // ============================================================
         const ADMIN_KEY = 'library_admin_password';
         const SESSION_KEY = 'library_session';
+        const APP_NAME_KEY = 'library_app_name';
 
-        let currentUser = null; // 'admin' or 'user'
+        let currentUser = null;
 
         function getAdminPassword() {
             let pwd = localStorage.getItem(ADMIN_KEY);
-            if (!pwd) {
-                pwd = 'admin';
-                localStorage.setItem(ADMIN_KEY, pwd);
-            }
+            if (!pwd) { pwd = 'admin'; localStorage.setItem(ADMIN_KEY, pwd); }
             return pwd;
         }
+        function setAdminPassword(newPwd) { localStorage.setItem(ADMIN_KEY, newPwd); }
 
-        function setAdminPassword(newPwd) {
-            localStorage.setItem(ADMIN_KEY, newPwd);
+        function getAppName() {
+            let name = localStorage.getItem(APP_NAME_KEY);
+            if (!name) { name = 'Thư Viện School'; localStorage.setItem(APP_NAME_KEY, name); }
+            return name;
+        }
+        function setAppName(name) { localStorage.setItem(APP_NAME_KEY, name); }
+
+        function updateAppNameUI() {
+            const name = getAppName();
+            document.title = '📚 ' + name;
+            document.getElementById('loginAppName').textContent = name;
+            document.getElementById('sidebarAppName').innerHTML = name.replace('School', '<span>School</span>') || 'Thư Viện <span>School</span>';
+            // Cập nhật logo nếu có
         }
 
         function login(e) {
@@ -1363,16 +1207,9 @@
             const username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
             const errorEl = document.getElementById('loginError');
-
-            if (!username || !password) {
-                errorEl.textContent = 'Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.';
-                return;
-            }
-
-            // Chỉ hỗ trợ tài khoản admin
+            if (!username || !password) { errorEl.textContent = 'Vui lòng nhập đầy đủ thông tin.'; return; }
             if (username === 'admin') {
-                const adminPwd = getAdminPassword();
-                if (password === adminPwd) {
+                if (password === getAdminPassword()) {
                     currentUser = 'admin';
                     localStorage.setItem(SESSION_KEY, 'admin');
                     errorEl.textContent = '';
@@ -1381,13 +1218,13 @@
                     showToast('Đăng nhập thành công!', 'success');
                     renderHome();
                     renderBooks();
+                    renderBorrowList();
                     return;
                 } else {
                     errorEl.textContent = 'Sai mật khẩu. Vui lòng thử lại.';
                     return;
                 }
             } else {
-                // Người dùng thông thường (không cần mật khẩu)
                 currentUser = 'user';
                 localStorage.setItem(SESSION_KEY, 'user');
                 errorEl.textContent = '';
@@ -1396,6 +1233,7 @@
                 showToast('Chào mừng bạn! (Chế độ xem)', 'info');
                 renderHome();
                 renderBooks();
+                renderBorrowList();
                 return;
             }
         }
@@ -1410,81 +1248,59 @@
 
         function checkSession() {
             const session = localStorage.getItem(SESSION_KEY);
-            if (session === 'admin') {
-                currentUser = 'admin';
-                document.getElementById('loginOverlay').classList.remove('show');
-                applyPermissions();
-                renderHome();
-                renderBooks();
-            } else if (session === 'user') {
-                currentUser = 'user';
-                document.getElementById('loginOverlay').classList.remove('show');
-                applyPermissions();
-                renderHome();
-                renderBooks();
-            } else {
-                // Chưa đăng nhập
-                currentUser = null;
-                document.getElementById('loginOverlay').classList.add('show');
-                // Ẩn toàn bộ nội dung chính
-                document.getElementById('mainContent').style.opacity = '0.3';
-                document.getElementById('sidebar').style.opacity = '0.3';
-            }
+            if (session === 'admin') { currentUser = 'admin'; document.getElementById('loginOverlay').classList.remove('show'); applyPermissions(); renderAll(); }
+            else if (session === 'user') { currentUser = 'user'; document.getElementById('loginOverlay').classList.remove('show'); applyPermissions(); renderAll(); }
+            else { currentUser = null; document.getElementById('loginOverlay').classList.add('show'); document.getElementById('mainContent').style.opacity = '0.3'; document.getElementById('sidebar').style.opacity = '0.3'; }
         }
 
         function applyPermissions() {
             const isAdmin = (currentUser === 'admin');
-            // Hiển thị/ẩn nút thêm sách
             document.getElementById('addBookBtn').style.display = isAdmin ? 'inline-flex' : 'none';
-            // Hiển thị/ẩn cài đặt đổi mật khẩu
+            document.getElementById('borrowBtn').style.display = isAdmin ? 'inline-flex' : 'none';
             document.getElementById('settingsNav').style.display = isAdmin ? 'flex' : 'none';
-            // Cập nhật tên và vai trò trên thanh topbar
             document.getElementById('userName').textContent = isAdmin ? 'Admin' : 'Người dùng';
             document.getElementById('userRole').textContent = isAdmin ? 'Quản trị viên' : 'Người dùng';
-            // Cho phép tương tác
             document.getElementById('mainContent').style.opacity = '1';
             document.getElementById('sidebar').style.opacity = '1';
-            // Ẩn các nút sửa/xóa trong bảng nếu không phải admin (sẽ được áp dụng khi render)
         }
 
         // ============================================================
-        // DATA - LOCALSTORAGE
+        // DATA - BOOKS & BORROWS
         // ============================================================
         let books = [];
         let nextId = 1;
+        let borrows = [];
+        let nextBorrowId = 1;
         let currentCampus = 'all';
 
         const STORAGE_KEY = 'library_books';
         const ID_KEY = 'library_nextId';
+        const BORROW_KEY = 'library_borrows';
+        const BORROW_ID_KEY = 'library_nextBorrowId';
 
-        const campusLabels = {
-            main: 'Chính (THCS)',
-            branch1: 'Lẻ 1 (TH)',
-            branch2: 'Lẻ 2 (THCS)'
-        };
-
-        const campusColors = {
-            main: 'main',
-            branch1: 'branch1',
-            branch2: 'branch2'
-        };
-
-        const statusLabels = {
-            available: 'Có sẵn',
-            borrowed: 'Đang mượn',
-            maintenance: 'Bảo trì'
-        };
+        const campusLabels = { main: 'Chính (THCS)', branch1: 'Lẻ 1 (TH)', branch2: 'Lẻ 2 (THCS)' };
+        const campusColors = { main: 'main', branch1: 'branch1', branch2: 'branch2' };
+        const statusLabels = { available: 'Có sẵn', borrowed: 'Đang mượn', maintenance: 'Bảo trì' };
 
         function loadFromStorage() {
             const storedBooks = localStorage.getItem(STORAGE_KEY);
             const storedId = localStorage.getItem(ID_KEY);
-
             if (storedBooks) {
                 books = JSON.parse(storedBooks);
                 nextId = storedId ? parseInt(storedId) : (books.length > 0 ? Math.max(...books.map(b => b.id)) + 1 : 1);
             } else {
                 seedData();
                 saveToStorage();
+            }
+            const storedBorrows = localStorage.getItem(BORROW_KEY);
+            const storedBorrowId = localStorage.getItem(BORROW_ID_KEY);
+            if (storedBorrows) {
+                borrows = JSON.parse(storedBorrows);
+                nextBorrowId = storedBorrowId ? parseInt(storedBorrowId) : (borrows.length > 0 ? Math.max(...borrows.map(b => b.id)) + 1 : 1);
+            } else {
+                borrows = [];
+                nextBorrowId = 1;
+                saveBorrowsToStorage();
             }
         }
 
@@ -1493,55 +1309,42 @@
             localStorage.setItem(ID_KEY, String(nextId));
         }
 
+        function saveBorrowsToStorage() {
+            localStorage.setItem(BORROW_KEY, JSON.stringify(borrows));
+            localStorage.setItem(BORROW_ID_KEY, String(nextBorrowId));
+        }
+
         function seedData() {
             const sample = [
-                { title: 'Toán học lớp 6', author: 'Nguyễn Văn A', isbn: '978-604-1-00123-4', publisher: 'GD Việt Nam',
-                    year: 2023, quantity: 12, campus: 'main', status: 'available', description: 'Sách giáo khoa Toán 6' },
-                { title: 'Ngữ văn lớp 7', author: 'Trần Thị B', isbn: '978-604-1-00456-7', publisher: 'GD Việt Nam',
-                    year: 2023, quantity: 8, campus: 'main', status: 'borrowed', description: 'SGK Ngữ văn 7' },
-                { title: 'Tiếng Anh lớp 5', author: 'Lê Văn C', isbn: '978-604-1-00789-0', publisher: 'GD Việt Nam',
-                    year: 2023, quantity: 15, campus: 'branch1', status: 'available', description: 'SGK Tiếng Anh 5' },
-                { title: 'Khoa học lớp 4', author: 'Phạm Thị D', isbn: '978-604-1-00112-3', publisher: 'GD Việt Nam',
-                    year: 2023, quantity: 10, campus: 'branch1', status: 'available', description: 'SGK Khoa học 4' },
-                { title: 'Lịch sử lớp 8', author: 'Hoàng Văn E', isbn: '978-604-1-00345-6', publisher: 'GD Việt Nam',
-                    year: 2023, quantity: 6, campus: 'branch2', status: 'maintenance', description: 'SGK Lịch sử 8' },
-                { title: 'Địa lý lớp 9', author: 'Ngô Thị F', isbn: '978-604-1-00678-9', publisher: 'GD Việt Nam',
-                    year: 2023, quantity: 9, campus: 'branch2', status: 'available', description: 'SGK Địa lý 9' },
-                { title: 'Tin học lớp 6', author: 'Đặng Văn G', isbn: '978-604-1-00901-1', publisher: 'GD Việt Nam',
-                    year: 2023, quantity: 7, campus: 'main', status: 'borrowed', description: 'SGK Tin học 6' },
-                { title: 'Âm nhạc lớp 3', author: 'Mai Thị H', isbn: '978-604-1-00234-5', publisher: 'GD Việt Nam',
-                    year: 2023, quantity: 14, campus: 'branch1', status: 'available', description: 'SGK Âm nhạc 3' },
-                { title: 'Mỹ thuật lớp 2', author: 'Vũ Văn I', isbn: '978-604-1-00567-8', publisher: 'GD Việt Nam',
-                    year: 2023, quantity: 11, campus: 'branch1', status: 'available', description: 'SGK Mỹ thuật 2' },
-                { title: 'Giáo dục công dân lớp 7', author: 'Lý Thị K', isbn: '978-604-1-00890-2', publisher: 'GD Việt Nam',
-                    year: 2023, quantity: 5, campus: 'main', status: 'maintenance', description: 'SGK GDCD 7' },
+                { title: 'Toán học lớp 6', author: 'Nguyễn Văn A', isbn: '978-604-1-00123-4', publisher: 'GD Việt Nam', year: 2023, quantity: 12, campus: 'main', status: 'available', description: 'Sách giáo khoa Toán 6' },
+                { title: 'Ngữ văn lớp 7', author: 'Trần Thị B', isbn: '978-604-1-00456-7', publisher: 'GD Việt Nam', year: 2023, quantity: 8, campus: 'main', status: 'borrowed', description: 'SGK Ngữ văn 7' },
+                { title: 'Tiếng Anh lớp 5', author: 'Lê Văn C', isbn: '978-604-1-00789-0', publisher: 'GD Việt Nam', year: 2023, quantity: 15, campus: 'branch1', status: 'available', description: 'SGK Tiếng Anh 5' },
+                { title: 'Khoa học lớp 4', author: 'Phạm Thị D', isbn: '978-604-1-00112-3', publisher: 'GD Việt Nam', year: 2023, quantity: 10, campus: 'branch1', status: 'available', description: 'SGK Khoa học 4' },
+                { title: 'Lịch sử lớp 8', author: 'Hoàng Văn E', isbn: '978-604-1-00345-6', publisher: 'GD Việt Nam', year: 2023, quantity: 6, campus: 'branch2', status: 'maintenance', description: 'SGK Lịch sử 8' },
+                { title: 'Địa lý lớp 9', author: 'Ngô Thị F', isbn: '978-604-1-00678-9', publisher: 'GD Việt Nam', year: 2023, quantity: 9, campus: 'branch2', status: 'available', description: 'SGK Địa lý 9' },
+                { title: 'Tin học lớp 6', author: 'Đặng Văn G', isbn: '978-604-1-00901-1', publisher: 'GD Việt Nam', year: 2023, quantity: 7, campus: 'main', status: 'borrowed', description: 'SGK Tin học 6' },
+                { title: 'Âm nhạc lớp 3', author: 'Mai Thị H', isbn: '978-604-1-00234-5', publisher: 'GD Việt Nam', year: 2023, quantity: 14, campus: 'branch1', status: 'available', description: 'SGK Âm nhạc 3' },
+                { title: 'Mỹ thuật lớp 2', author: 'Vũ Văn I', isbn: '978-604-1-00567-8', publisher: 'GD Việt Nam', year: 2023, quantity: 11, campus: 'branch1', status: 'available', description: 'SGK Mỹ thuật 2' },
+                { title: 'Giáo dục công dân lớp 7', author: 'Lý Thị K', isbn: '978-604-1-00890-2', publisher: 'GD Việt Nam', year: 2023, quantity: 5, campus: 'main', status: 'maintenance', description: 'SGK GDCD 7' },
             ];
-            sample.forEach((b) => {
-                books.push({ id: nextId++, ...b });
-            });
+            sample.forEach((b) => { books.push({ id: nextId++, ...b }); });
         }
 
         // ============================================================
         // HELPERS
         // ============================================================
-        function getCampusLabel(campus) {
-            return campusLabels[campus] || campus;
-        }
+        function getCampusLabel(campus) { return campusLabels[campus] || campus; }
+        function getStatusLabel(status) { return statusLabels[status] || status; }
+        function getCampusBadge(campus) { return `<span class="badge-campus ${campusColors[campus] || 'main'}">${getCampusLabel(campus)}</span>`; }
+        function getStatusBadge(status) { return `<span class="badge-status ${status}">${getStatusLabel(status)}</span>`; }
+        function getToday() { return new Date().toLocaleDateString('vi-VN', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' }); }
+        function formatDate(dateStr) { if (!dateStr) return ''; const d = new Date(dateStr); return d.toLocaleDateString('vi-VN'); }
 
-        function getStatusLabel(status) {
-            return statusLabels[status] || status;
-        }
-
-        function getCampusBadge(campus) {
-            return `<span class="badge-campus ${campusColors[campus] || 'main'}">${getCampusLabel(campus)}</span>`;
-        }
-
-        function getStatusBadge(status) {
-            return `<span class="badge-status ${status}">${getStatusLabel(status)}</span>`;
-        }
-
-        function getToday() {
-            return new Date().toLocaleDateString('vi-VN', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' });
+        function getAvailableQuantity(bookId) {
+            const book = books.find(b => b.id === bookId);
+            if (!book) return 0;
+            const borrowedCount = borrows.filter(b => b.bookId === bookId && b.status === 'dang-muon').reduce((sum, b) => sum + b.quantity, 0);
+            return book.quantity - borrowedCount;
         }
 
         // ============================================================
@@ -1552,15 +1355,9 @@
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
             const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
-            toast.innerHTML = `
-                <i class="fas ${icon}"></i>
-                <span>${message}</span>
-                <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
-            `;
+            toast.innerHTML = `<i class="fas ${icon}"></i><span>${message}</span><button class="toast-close" onclick="this.parentElement.remove()">&times;</button>`;
             container.appendChild(toast);
-            setTimeout(() => {
-                if (toast.parentElement) toast.remove();
-            }, 4000);
+            setTimeout(() => { if (toast.parentElement) toast.remove(); }, 4000);
         }
 
         // ============================================================
@@ -1569,33 +1366,27 @@
         function navigateTo(page) {
             document.querySelectorAll('.sidebar .nav-item').forEach(el => el.classList.remove('active'));
             document.querySelector(`.sidebar .nav-item[data-page="${page}"]`)?.classList.add('active');
-
             document.getElementById('page-home').style.display = page === 'home' ? 'block' : 'none';
             document.getElementById('page-books').style.display = page === 'books' ? 'block' : 'none';
+            document.getElementById('page-borrow').style.display = page === 'borrow' ? 'block' : 'none';
             document.getElementById('page-settings').style.display = page === 'settings' ? 'block' : 'none';
 
-            const titles = {
-                home: 'Bảng điều khiển',
-                books: 'Quản lý sách',
-                settings: 'Cài đặt'
-            };
+            const titles = { home: 'Bảng điều khiển', books: 'Quản lý sách', borrow: 'Mượn/Trả sách', settings: 'Cài đặt' };
             document.getElementById('pageTitle').textContent = titles[page] || 'Trang';
             const subtitles = {
                 home: 'Tổng quan thư viện trường học',
                 books: 'Thêm, sửa, xóa và quản lý sách',
-                settings: 'Thay đổi mật khẩu quản trị'
+                borrow: 'Quản lý phiếu mượn và trả sách',
+                settings: 'Cài đặt ứng dụng và mật khẩu'
             };
             document.getElementById('pageSubtitle').textContent = subtitles[page] || '';
-
             if (page === 'home') renderHome();
             if (page === 'books') renderBooks();
+            if (page === 'borrow') renderBorrowList();
         }
 
         document.querySelectorAll('.sidebar .nav-item').forEach(el => {
-            el.addEventListener('click', () => {
-                const page = el.dataset.page;
-                navigateTo(page);
-            });
+            el.addEventListener('click', () => { const page = el.dataset.page; navigateTo(page); });
         });
 
         document.querySelectorAll('.sidebar .campus-item').forEach(el => {
@@ -1615,15 +1406,11 @@
         function renderHome() {
             const campus = currentCampus;
             let filtered = books;
-            if (campus !== 'all') {
-                filtered = books.filter(b => b.campus === campus);
-            }
-
+            if (campus !== 'all') filtered = books.filter(b => b.campus === campus);
             const total = filtered.length;
-            const available = filtered.filter(b => b.status === 'available').length;
-            const borrowed = filtered.filter(b => b.status === 'borrowed').length;
+            const available = filtered.filter(b => getAvailableQuantity(b.id) > 0).length;
+            const borrowed = filtered.filter(b => getAvailableQuantity(b.id) < b.quantity).length;
             const maintenance = filtered.filter(b => b.status === 'maintenance').length;
-
             document.getElementById('statTotal').textContent = total;
             document.getElementById('statAvailable').textContent = available;
             document.getElementById('statBorrowed').textContent = borrowed;
@@ -1633,18 +1420,15 @@
             const mainBooks = allBooks.filter(b => b.campus === 'main');
             const br1Books = allBooks.filter(b => b.campus === 'branch1');
             const br2Books = allBooks.filter(b => b.campus === 'branch2');
-
             document.getElementById('campus-main-total').textContent = mainBooks.length;
-            document.getElementById('campus-main-avail').textContent = mainBooks.filter(b => b.status === 'available').length;
-            document.getElementById('campus-main-borrow').textContent = mainBooks.filter(b => b.status === 'borrowed').length;
-
+            document.getElementById('campus-main-avail').textContent = mainBooks.filter(b => getAvailableQuantity(b.id) > 0).length;
+            document.getElementById('campus-main-borrow').textContent = mainBooks.filter(b => getAvailableQuantity(b.id) < b.quantity).length;
             document.getElementById('campus-branch1-total').textContent = br1Books.length;
-            document.getElementById('campus-branch1-avail').textContent = br1Books.filter(b => b.status === 'available').length;
-            document.getElementById('campus-branch1-borrow').textContent = br1Books.filter(b => b.status === 'borrowed').length;
-
+            document.getElementById('campus-branch1-avail').textContent = br1Books.filter(b => getAvailableQuantity(b.id) > 0).length;
+            document.getElementById('campus-branch1-borrow').textContent = br1Books.filter(b => getAvailableQuantity(b.id) < b.quantity).length;
             document.getElementById('campus-branch2-total').textContent = br2Books.length;
-            document.getElementById('campus-branch2-avail').textContent = br2Books.filter(b => b.status === 'available').length;
-            document.getElementById('campus-branch2-borrow').textContent = br2Books.filter(b => b.status === 'borrowed').length;
+            document.getElementById('campus-branch2-avail').textContent = br2Books.filter(b => getAvailableQuantity(b.id) > 0).length;
+            document.getElementById('campus-branch2-borrow').textContent = br2Books.filter(b => getAvailableQuantity(b.id) < b.quantity).length;
 
             document.getElementById('campus-all-count').textContent = allBooks.length;
             document.getElementById('campus-main-count').textContent = mainBooks.length;
@@ -1658,18 +1442,18 @@
                 return;
             }
             tbody.innerHTML = recent.map((b, idx) => `
-                    <tr>
-                        <td>${idx + 1}</td>
-                        <td><strong>${b.title}</strong></td>
-                        <td>${b.author}</td>
-                        <td>${getCampusBadge(b.campus)}</td>
-                        <td>${getStatusBadge(b.status)}</td>
-                    </tr>
-                `).join('');
+                <tr>
+                    <td>${idx + 1}</td>
+                    <td><strong>${b.title}</strong></td>
+                    <td>${b.author}</td>
+                    <td>${getCampusBadge(b.campus)}</td>
+                    <td>${getStatusBadge(b.status)}</td>
+                </tr>
+            `).join('');
         }
 
         // ============================================================
-        // RENDER: BOOKS (có kiểm tra quyền)
+        // RENDER: BOOKS
         // ============================================================
         function renderBooks() {
             const campusFilter = document.getElementById('filterCampus').value;
@@ -1694,31 +1478,77 @@
             }
 
             const isAdmin = (currentUser === 'admin');
-
             tbody.innerHTML = filtered.map((b) => {
+                const available = getAvailableQuantity(b.id);
                 const actions = isAdmin ? `
-                            <div class="action-btns">
-                                <button class="btn btn-warning btn-sm" onclick="openEditModal(${b.id})">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-danger btn-sm" onclick="deleteBook(${b.id})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        ` : `<span style="color:#94a3b8; font-size:13px;">Chỉ xem</span>`;
+                    <div class="action-btns">
+                        <button class="btn btn-warning btn-sm" onclick="openEditModal(${b.id})"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteBook(${b.id})"><i class="fas fa-trash"></i></button>
+                    </div>
+                ` : `<span style="color:#94a3b8; font-size:13px;">Chỉ xem</span>`;
                 return `
-                        <tr>
-                            <td>${b.id}</td>
-                            <td><strong>${b.title}</strong></td>
-                            <td>${b.author}</td>
-                            <td>${b.isbn || '—'}</td>
-                            <td>${b.publisher || '—'}</td>
-                            <td>${getCampusBadge(b.campus)}</td>
-                            <td>${b.quantity}</td>
-                            <td>${getStatusBadge(b.status)}</td>
-                            <td>${actions}</td>
-                        </tr>
-                    `;
+                    <tr>
+                        <td>${b.id}</td>
+                        <td><strong>${b.title}</strong></td>
+                        <td>${b.author}</td>
+                        <td>${b.isbn || '—'}</td>
+                        <td>${b.publisher || '—'}</td>
+                        <td>${getCampusBadge(b.campus)}</td>
+                        <td>${available} / ${b.quantity}</td>
+                        <td>${getStatusBadge(b.status)}</td>
+                        <td>${actions}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // ============================================================
+        // RENDER: BORROW LIST
+        // ============================================================
+        function renderBorrowList() {
+            const statusFilter = document.getElementById('borrowFilterStatus').value;
+            const searchTerm = document.getElementById('borrowSearch').value.toLowerCase().trim();
+
+            let filtered = [...borrows];
+            if (statusFilter !== 'all') filtered = filtered.filter(b => b.status === statusFilter);
+            if (searchTerm) {
+                filtered = filtered.filter(b =>
+                    (b.borrowerName && b.borrowerName.toLowerCase().includes(searchTerm)) ||
+                    (b.bookTitle && b.bookTitle.toLowerCase().includes(searchTerm))
+                );
+            }
+            // sort by id descending (mới nhất trước)
+            filtered.sort((a, b) => b.id - a.id);
+
+            const container = document.getElementById('borrowList');
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="empty-state"><i class="fas fa-hand-holding-heart"></i><p>Chưa có phiếu mượn nào</p></div>`;
+                return;
+            }
+
+            const isAdmin = (currentUser === 'admin');
+            container.innerHTML = filtered.map(b => {
+                const statusBadge = b.status === 'dang-muon' ?
+                    `<span class="badge-status dang-muon">Đang mượn</span>` :
+                    `<span class="badge-status da-tra">Đã trả</span>`;
+                const returnDateDisplay = b.status === 'da-tra' ? `Đã trả: ${formatDate(b.actualReturnDate)}` : `Dự kiến: ${formatDate(b.expectedReturnDate)}`;
+                const actions = (isAdmin && b.status === 'dang-muon') ?
+                    `<button class="btn btn-success btn-xs" onclick="returnBook(${b.id})"><i class="fas fa-undo"></i> Trả sách</button>` :
+                    '';
+                return `
+                    <div class="borrow-card">
+                        <div class="borrow-info">
+                            <span class="field"><strong>Sách:</strong> ${b.bookTitle}</span>
+                            <span class="field"><strong>Số lượng:</strong> ${b.quantity}</span>
+                            <span class="field"><strong>Người mượn:</strong> ${b.borrowerName || 'Không tên'}</span>
+                            <span class="field"><strong>Ngày mượn:</strong> ${formatDate(b.borrowDate)}</span>
+                            <span class="field"><strong>${returnDateDisplay}</strong></span>
+                            <span class="field">${statusBadge}</span>
+                        </div>
+                        ${b.note ? `<div class="text-muted mt-2"><strong>Ghi chú:</strong> ${b.note}</div>` : ''}
+                        <div class="borrow-actions">${actions}</div>
+                    </div>
+                `;
             }).join('');
         }
 
@@ -1728,6 +1558,8 @@
         document.getElementById('filterCampus').addEventListener('change', renderBooks);
         document.getElementById('filterStatus').addEventListener('change', renderBooks);
         document.getElementById('searchBooks').addEventListener('input', renderBooks);
+        document.getElementById('borrowFilterStatus').addEventListener('change', renderBorrowList);
+        document.getElementById('borrowSearch').addEventListener('input', renderBorrowList);
 
         function resetFilters() {
             document.getElementById('filterCampus').value = 'all';
@@ -1740,14 +1572,17 @@
             renderHome();
         }
 
+        function resetBorrowFilters() {
+            document.getElementById('borrowFilterStatus').value = 'all';
+            document.getElementById('borrowSearch').value = '';
+            renderBorrowList();
+        }
+
         // ============================================================
-        // MODAL
+        // MODAL: BOOK
         // ============================================================
         function openAddModal() {
-            if (currentUser !== 'admin') {
-                showToast('Bạn không có quyền thêm sách.', 'error');
-                return;
-            }
+            if (currentUser !== 'admin') { showToast('Bạn không có quyền thêm sách.', 'error'); return; }
             document.getElementById('modalTitle').textContent = 'Thêm sách mới';
             document.getElementById('modalSubmitBtn').innerHTML = '<i class="fas fa-save"></i> Lưu sách';
             document.getElementById('bookForm').reset();
@@ -1757,13 +1592,9 @@
         }
 
         function openEditModal(id) {
-            if (currentUser !== 'admin') {
-                showToast('Bạn không có quyền sửa sách.', 'error');
-                return;
-            }
+            if (currentUser !== 'admin') { showToast('Bạn không có quyền sửa sách.', 'error'); return; }
             const b = books.find(book => book.id === id);
             if (!b) return;
-
             document.getElementById('modalTitle').textContent = 'Chỉnh sửa sách';
             document.getElementById('modalSubmitBtn').innerHTML = '<i class="fas fa-save"></i> Cập nhật';
             document.getElementById('editId').value = b.id;
@@ -1776,16 +1607,12 @@
             document.getElementById('fCampus').value = b.campus;
             document.getElementById('fStatus').value = b.status;
             document.getElementById('fDescription').value = b.description || '';
-
             document.getElementById('bookModal').classList.add('show');
         }
 
-        function closeModal() {
-            document.getElementById('bookModal').classList.remove('show');
-        }
-
-        document.getElementById('bookModal').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) closeModal();
+        function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+        document.querySelectorAll('.modal-overlay').forEach(el => {
+            el.addEventListener('click', (e) => { if (e.target === e.currentTarget) el.classList.remove('show'); });
         });
 
         // ============================================================
@@ -1793,11 +1620,7 @@
         // ============================================================
         function saveBook(e) {
             e.preventDefault();
-            if (currentUser !== 'admin') {
-                showToast('Bạn không có quyền thực hiện thao tác này.', 'error');
-                return;
-            }
-
+            if (currentUser !== 'admin') { showToast('Bạn không có quyền thực hiện thao tác này.', 'error'); return; }
             const id = document.getElementById('editId').value;
             const title = document.getElementById('fTitle').value.trim();
             const author = document.getElementById('fAuthor').value.trim();
@@ -1808,12 +1631,7 @@
             const campus = document.getElementById('fCampus').value;
             const status = document.getElementById('fStatus').value;
             const description = document.getElementById('fDescription').value.trim();
-
-            if (!title || !author || !quantity || !campus || !status) {
-                showToast('Vui lòng điền đầy đủ các trường bắt buộc!', 'error');
-                return;
-            }
-
+            if (!title || !author || !quantity || !campus || !status) { showToast('Vui lòng điền đầy đủ các trường bắt buộc!', 'error'); return; }
             if (id) {
                 const idx = books.findIndex(b => b.id === parseInt(id));
                 if (idx !== -1) {
@@ -1827,8 +1645,7 @@
                 saveToStorage();
                 showToast('📚 Đã thêm sách mới thành công!', 'success');
             }
-
-            closeModal();
+            closeModal('bookModal');
             renderHome();
             renderBooks();
         }
@@ -1837,10 +1654,7 @@
         // DELETE BOOK
         // ============================================================
         function deleteBook(id) {
-            if (currentUser !== 'admin') {
-                showToast('Bạn không có quyền xóa sách.', 'error');
-                return;
-            }
+            if (currentUser !== 'admin') { showToast('Bạn không có quyền xóa sách.', 'error'); return; }
             if (!confirm('Bạn có chắc chắn muốn xóa sách này?')) return;
             const idx = books.findIndex(b => b.id === id);
             if (idx !== -1) {
@@ -1854,42 +1668,162 @@
         }
 
         // ============================================================
-        // CHANGE PASSWORD (only admin)
+        // BORROW BOOK
+        // ============================================================
+        function openBorrowModal() {
+            if (currentUser !== 'admin') { showToast('Chỉ quản trị viên mới được mượn sách.', 'error'); return; }
+            const select = document.getElementById('borrowBookSelect');
+            select.innerHTML = '';
+            books.forEach(b => {
+                const avail = getAvailableQuantity(b.id);
+                if (avail > 0) {
+                    const opt = document.createElement('option');
+                    opt.value = b.id;
+                    opt.textContent = `${b.title} (còn ${avail}/${b.quantity})`;
+                    select.appendChild(opt);
+                }
+            });
+            if (select.options.length === 0) {
+                showToast('Không có sách nào có sẵn để mượn.', 'error');
+                return;
+            }
+            // set default dates
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('borrowDate').value = today;
+            const future = new Date();
+            future.setDate(future.getDate() + 7);
+            document.getElementById('returnDate').value = future.toISOString().split('T')[0];
+            document.getElementById('borrowQuantity').value = 1;
+            document.getElementById('borrowerName').value = '';
+            document.getElementById('borrowNote').value = '';
+            document.getElementById('borrowModal').classList.add('show');
+        }
+
+        function borrowBook(e) {
+            e.preventDefault();
+            if (currentUser !== 'admin') { showToast('Bạn không có quyền mượn sách.', 'error'); return; }
+            const bookId = parseInt(document.getElementById('borrowBookSelect').value);
+            const quantity = parseInt(document.getElementById('borrowQuantity').value);
+            const borrowerName = document.getElementById('borrowerName').value.trim();
+            const borrowDate = document.getElementById('borrowDate').value;
+            const expectedReturnDate = document.getElementById('returnDate').value;
+            const note = document.getElementById('borrowNote').value.trim();
+
+            if (!bookId || !quantity || !borrowerName || !borrowDate || !expectedReturnDate) {
+                showToast('Vui lòng điền đầy đủ thông tin.', 'error');
+                return;
+            }
+            const book = books.find(b => b.id === bookId);
+            if (!book) { showToast('Sách không tồn tại.', 'error'); return; }
+            const available = getAvailableQuantity(bookId);
+            if (quantity > available) {
+                showToast(`Số lượng mượn vượt quá số lượng có sẵn (${available}).`, 'error');
+                return;
+            }
+            if (new Date(expectedReturnDate) < new Date(borrowDate)) {
+                showToast('Ngày trả phải sau ngày mượn.', 'error');
+                return;
+            }
+
+            const borrow = {
+                id: nextBorrowId++,
+                bookId: book.id,
+                bookTitle: book.title,
+                quantity: quantity,
+                borrowerName: borrowerName,
+                borrowDate: borrowDate,
+                expectedReturnDate: expectedReturnDate,
+                actualReturnDate: null,
+                status: 'dang-muon',
+                note: note,
+                createdAt: new Date().toISOString()
+            };
+            borrows.push(borrow);
+            saveBorrowsToStorage();
+            // Cập nhật trạng thái sách nếu số lượng còn 0
+            if (getAvailableQuantity(bookId) === 0) {
+                const idx = books.findIndex(b => b.id === bookId);
+                if (idx !== -1) books[idx].status = 'borrowed';
+                saveToStorage();
+            }
+            showToast(`📚 Đã mượn sách "${book.title}" (${quantity} cuốn)`, 'success');
+            closeModal('borrowModal');
+            renderHome();
+            renderBooks();
+            renderBorrowList();
+        }
+
+        // ============================================================
+        // RETURN BOOK
+        // ============================================================
+        function returnBook(borrowId) {
+            if (currentUser !== 'admin') { showToast('Bạn không có quyền trả sách.', 'error'); return; }
+            const borrow = borrows.find(b => b.id === borrowId);
+            if (!borrow) return;
+            if (borrow.status === 'da-tra') { showToast('Sách đã được trả rồi.', 'info'); return; }
+            if (!confirm(`Xác nhận trả sách "${borrow.bookTitle}" (${borrow.quantity} cuốn)?`)) return;
+
+            borrow.status = 'da-tra';
+            borrow.actualReturnDate = new Date().toISOString().split('T')[0];
+            saveBorrowsToStorage();
+
+            // Cập nhật lại trạng thái sách nếu còn sẵn
+            const book = books.find(b => b.id === borrow.bookId);
+            if (book) {
+                const avail = getAvailableQuantity(book.id);
+                if (avail > 0) {
+                    const idx = books.findIndex(b => b.id === book.id);
+                    if (idx !== -1) books[idx].status = 'available';
+                    saveToStorage();
+                }
+            }
+            showToast(`✅ Đã trả sách "${borrow.bookTitle}"`, 'success');
+            renderHome();
+            renderBooks();
+            renderBorrowList();
+        }
+
+        // ============================================================
+        // CHANGE PASSWORD & APP NAME
         // ============================================================
         function changePassword(e) {
             e.preventDefault();
-            if (currentUser !== 'admin') {
-                showToast('Chỉ quản trị viên mới có thể đổi mật khẩu.', 'error');
-                return;
-            }
+            if (currentUser !== 'admin') { showToast('Chỉ quản trị viên mới có thể đổi mật khẩu.', 'error'); return; }
             const old = document.getElementById('oldPassword').value.trim();
             const newPwd = document.getElementById('newPassword').value.trim();
             const confirm = document.getElementById('confirmPassword').value.trim();
             const msgEl = document.getElementById('passwordMsg');
-
-            if (!old || !newPwd || !confirm) {
-                msgEl.innerHTML = '<span style="color:#ef4444;">Vui lòng điền đầy đủ thông tin.</span>';
-                return;
-            }
-            if (newPwd.length < 4) {
-                msgEl.innerHTML = '<span style="color:#ef4444;">Mật khẩu mới phải có ít nhất 4 ký tự.</span>';
-                return;
-            }
-            if (newPwd !== confirm) {
-                msgEl.innerHTML = '<span style="color:#ef4444;">Xác nhận mật khẩu không khớp.</span>';
-                return;
-            }
-
-            const adminPwd = getAdminPassword();
-            if (old !== adminPwd) {
-                msgEl.innerHTML = '<span style="color:#ef4444;">Mật khẩu hiện tại không đúng.</span>';
-                return;
-            }
-
+            if (!old || !newPwd || !confirm) { msgEl.innerHTML = '<span style="color:#ef4444;">Vui lòng điền đầy đủ thông tin.</span>'; return; }
+            if (newPwd.length < 4) { msgEl.innerHTML = '<span style="color:#ef4444;">Mật khẩu mới phải có ít nhất 4 ký tự.</span>'; return; }
+            if (newPwd !== confirm) { msgEl.innerHTML = '<span style="color:#ef4444;">Xác nhận mật khẩu không khớp.</span>'; return; }
+            if (old !== getAdminPassword()) { msgEl.innerHTML = '<span style="color:#ef4444;">Mật khẩu hiện tại không đúng.</span>'; return; }
             setAdminPassword(newPwd);
             msgEl.innerHTML = '<span style="color:#10b981;">✅ Mật khẩu đã được thay đổi thành công!</span>';
             document.getElementById('changePasswordForm').reset();
             showToast('Mật khẩu đã được cập nhật.', 'success');
+        }
+
+        function changeAppName(e) {
+            e.preventDefault();
+            if (currentUser !== 'admin') { showToast('Chỉ quản trị viên mới có thể đổi tên ứng dụng.', 'error'); return; }
+            const newName = document.getElementById('appNameInput').value.trim();
+            if (!newName) { document.getElementById('appNameMsg').innerHTML = '<span style="color:#ef4444;">Tên không được để trống.</span>'; return; }
+            setAppName(newName);
+            updateAppNameUI();
+            document.getElementById('appNameMsg').innerHTML = '<span style="color:#10b981;">✅ Tên ứng dụng đã được cập nhật!</span>';
+            showToast('Tên ứng dụng đã được đổi.', 'success');
+        }
+
+        // ============================================================
+        // RENDER ALL
+        // ============================================================
+        function renderAll() {
+            renderHome();
+            renderBooks();
+            renderBorrowList();
+            updateAppNameUI();
+            // Load app name vào input settings
+            document.getElementById('appNameInput').value = getAppName();
         }
 
         // ============================================================
@@ -1898,12 +1832,15 @@
         function init() {
             document.getElementById('currentDate').textContent = getToday();
             loadFromStorage();
-            checkSession(); // sẽ hiển thị login nếu chưa đăng nhập
-            // Nếu đã đăng nhập, các render sẽ được gọi trong checkSession
+            updateAppNameUI();
+            checkSession();
+            // Nếu đã đăng nhập, render đầy đủ
+            if (currentUser) {
+                renderAll();
+            }
         }
 
         init();
     </script>
-
 </body>
 </html>
