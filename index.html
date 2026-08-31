@@ -1199,7 +1199,6 @@
             document.title = '📚 ' + name;
             document.getElementById('loginAppName').textContent = name;
             document.getElementById('sidebarAppName').innerHTML = name.replace('School', '<span>School</span>') || 'Thư Viện <span>School</span>';
-            // Cập nhật logo nếu có
         }
 
         function login(e) {
@@ -1216,9 +1215,7 @@
                     document.getElementById('loginOverlay').classList.remove('show');
                     applyPermissions();
                     showToast('Đăng nhập thành công!', 'success');
-                    renderHome();
-                    renderBooks();
-                    renderBorrowList();
+                    renderAll();
                     return;
                 } else {
                     errorEl.textContent = 'Sai mật khẩu. Vui lòng thử lại.';
@@ -1231,9 +1228,7 @@
                 document.getElementById('loginOverlay').classList.remove('show');
                 applyPermissions();
                 showToast('Chào mừng bạn! (Chế độ xem)', 'info');
-                renderHome();
-                renderBooks();
-                renderBorrowList();
+                renderAll();
                 return;
             }
         }
@@ -1317,17 +1312,59 @@
         function seedData() {
             const sample = [
                 { title: 'Toán học lớp 6', author: 'Nguyễn Văn A', isbn: '978-604-1-00123-4', publisher: 'GD Việt Nam', year: 2023, quantity: 12, campus: 'main', status: 'available', description: 'Sách giáo khoa Toán 6' },
-                { title: 'Ngữ văn lớp 7', author: 'Trần Thị B', isbn: '978-604-1-00456-7', publisher: 'GD Việt Nam', year: 2023, quantity: 8, campus: 'main', status: 'borrowed', description: 'SGK Ngữ văn 7' },
+                { title: 'Ngữ văn lớp 7', author: 'Trần Thị B', isbn: '978-604-1-00456-7', publisher: 'GD Việt Nam', year: 2023, quantity: 8, campus: 'main', status: 'available', description: 'SGK Ngữ văn 7' },
                 { title: 'Tiếng Anh lớp 5', author: 'Lê Văn C', isbn: '978-604-1-00789-0', publisher: 'GD Việt Nam', year: 2023, quantity: 15, campus: 'branch1', status: 'available', description: 'SGK Tiếng Anh 5' },
                 { title: 'Khoa học lớp 4', author: 'Phạm Thị D', isbn: '978-604-1-00112-3', publisher: 'GD Việt Nam', year: 2023, quantity: 10, campus: 'branch1', status: 'available', description: 'SGK Khoa học 4' },
                 { title: 'Lịch sử lớp 8', author: 'Hoàng Văn E', isbn: '978-604-1-00345-6', publisher: 'GD Việt Nam', year: 2023, quantity: 6, campus: 'branch2', status: 'maintenance', description: 'SGK Lịch sử 8' },
                 { title: 'Địa lý lớp 9', author: 'Ngô Thị F', isbn: '978-604-1-00678-9', publisher: 'GD Việt Nam', year: 2023, quantity: 9, campus: 'branch2', status: 'available', description: 'SGK Địa lý 9' },
-                { title: 'Tin học lớp 6', author: 'Đặng Văn G', isbn: '978-604-1-00901-1', publisher: 'GD Việt Nam', year: 2023, quantity: 7, campus: 'main', status: 'borrowed', description: 'SGK Tin học 6' },
+                { title: 'Tin học lớp 6', author: 'Đặng Văn G', isbn: '978-604-1-00901-1', publisher: 'GD Việt Nam', year: 2023, quantity: 7, campus: 'main', status: 'available', description: 'SGK Tin học 6' },
                 { title: 'Âm nhạc lớp 3', author: 'Mai Thị H', isbn: '978-604-1-00234-5', publisher: 'GD Việt Nam', year: 2023, quantity: 14, campus: 'branch1', status: 'available', description: 'SGK Âm nhạc 3' },
                 { title: 'Mỹ thuật lớp 2', author: 'Vũ Văn I', isbn: '978-604-1-00567-8', publisher: 'GD Việt Nam', year: 2023, quantity: 11, campus: 'branch1', status: 'available', description: 'SGK Mỹ thuật 2' },
                 { title: 'Giáo dục công dân lớp 7', author: 'Lý Thị K', isbn: '978-604-1-00890-2', publisher: 'GD Việt Nam', year: 2023, quantity: 5, campus: 'main', status: 'maintenance', description: 'SGK GDCD 7' },
             ];
             sample.forEach((b) => { books.push({ id: nextId++, ...b }); });
+        }
+
+        // ============================================================
+        // CORE LOGIC: getAvailableQuantity (tính theo campus)
+        // ============================================================
+        function getAvailableQuantity(bookId) {
+            const book = books.find(b => b.id === bookId);
+            if (!book) return 0;
+            // Tính số lượng đã mượn chưa trả của sách này tại đúng campus
+            const borrowedCount = borrows
+                .filter(b => b.bookId === bookId && b.campus === book.campus && b.status === 'dang-muon')
+                .reduce((sum, b) => sum + b.quantity, 0);
+            return book.quantity - borrowedCount;
+        }
+
+        // Hàm tính tổng số lượng sách đang mượn (đã mượn) theo campus
+        function getBorrowedCountByCampus(campus) {
+            let total = 0;
+            books.forEach(book => {
+                if (campus !== 'all' && book.campus !== campus) return;
+                const borrowed = borrows
+                    .filter(b => b.bookId === book.id && b.campus === book.campus && b.status === 'dang-muon')
+                    .reduce((sum, b) => sum + b.quantity, 0);
+                total += borrowed;
+            });
+            return total;
+        }
+
+        // Tổng số sách có sẵn (available) theo campus
+        function getAvailableCountByCampus(campus) {
+            let total = 0;
+            books.forEach(book => {
+                if (campus !== 'all' && book.campus !== campus) return;
+                total += getAvailableQuantity(book.id);
+            });
+            return total;
+        }
+
+        // Tổng số sách (total) theo campus
+        function getTotalBooksByCampus(campus) {
+            if (campus === 'all') return books.reduce((sum, b) => sum + b.quantity, 0);
+            return books.filter(b => b.campus === campus).reduce((sum, b) => sum + b.quantity, 0);
         }
 
         // ============================================================
@@ -1339,13 +1376,6 @@
         function getStatusBadge(status) { return `<span class="badge-status ${status}">${getStatusLabel(status)}</span>`; }
         function getToday() { return new Date().toLocaleDateString('vi-VN', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' }); }
         function formatDate(dateStr) { if (!dateStr) return ''; const d = new Date(dateStr); return d.toLocaleDateString('vi-VN'); }
-
-        function getAvailableQuantity(bookId) {
-            const book = books.find(b => b.id === bookId);
-            if (!book) return 0;
-            const borrowedCount = borrows.filter(b => b.bookId === bookId && b.status === 'dang-muon').reduce((sum, b) => sum + b.quantity, 0);
-            return book.quantity - borrowedCount;
-        }
 
         // ============================================================
         // TOAST
@@ -1405,36 +1435,39 @@
         // ============================================================
         function renderHome() {
             const campus = currentCampus;
-            let filtered = books;
-            if (campus !== 'all') filtered = books.filter(b => b.campus === campus);
-            const total = filtered.length;
-            const available = filtered.filter(b => getAvailableQuantity(b.id) > 0).length;
-            const borrowed = filtered.filter(b => getAvailableQuantity(b.id) < b.quantity).length;
-            const maintenance = filtered.filter(b => b.status === 'maintenance').length;
+
+            const total = getTotalBooksByCampus(campus);
+            const available = getAvailableCountByCampus(campus);
+            const borrowed = getBorrowedCountByCampus(campus);
+            const maintenance = books.filter(b => {
+                if (campus !== 'all' && b.campus !== campus) return false;
+                return b.status === 'maintenance';
+            }).length;
+
             document.getElementById('statTotal').textContent = total;
             document.getElementById('statAvailable').textContent = available;
             document.getElementById('statBorrowed').textContent = borrowed;
             document.getElementById('statMaintenance').textContent = maintenance;
 
-            const allBooks = books;
-            const mainBooks = allBooks.filter(b => b.campus === 'main');
-            const br1Books = allBooks.filter(b => b.campus === 'branch1');
-            const br2Books = allBooks.filter(b => b.campus === 'branch2');
-            document.getElementById('campus-main-total').textContent = mainBooks.length;
-            document.getElementById('campus-main-avail').textContent = mainBooks.filter(b => getAvailableQuantity(b.id) > 0).length;
-            document.getElementById('campus-main-borrow').textContent = mainBooks.filter(b => getAvailableQuantity(b.id) < b.quantity).length;
-            document.getElementById('campus-branch1-total').textContent = br1Books.length;
-            document.getElementById('campus-branch1-avail').textContent = br1Books.filter(b => getAvailableQuantity(b.id) > 0).length;
-            document.getElementById('campus-branch1-borrow').textContent = br1Books.filter(b => getAvailableQuantity(b.id) < b.quantity).length;
-            document.getElementById('campus-branch2-total').textContent = br2Books.length;
-            document.getElementById('campus-branch2-avail').textContent = br2Books.filter(b => getAvailableQuantity(b.id) > 0).length;
-            document.getElementById('campus-branch2-borrow').textContent = br2Books.filter(b => getAvailableQuantity(b.id) < b.quantity).length;
+            // Campus detail cards (tổng, sẵn, mượn)
+            ['main', 'branch1', 'branch2'].forEach(camp => {
+                const totalC = getTotalBooksByCampus(camp);
+                const availC = getAvailableCountByCampus(camp);
+                const borrowC = getBorrowedCountByCampus(camp);
+                document.getElementById(`campus-${camp}-total`).textContent = totalC;
+                document.getElementById(`campus-${camp}-avail`).textContent = availC;
+                document.getElementById(`campus-${camp}-borrow`).textContent = borrowC;
+            });
 
-            document.getElementById('campus-all-count').textContent = allBooks.length;
-            document.getElementById('campus-main-count').textContent = mainBooks.length;
-            document.getElementById('campus-branch1-count').textContent = br1Books.length;
-            document.getElementById('campus-branch2-count').textContent = br2Books.length;
+            // Sidebar badges
+            ['all', 'main', 'branch1', 'branch2'].forEach(camp => {
+                const totalC = getTotalBooksByCampus(camp);
+                document.getElementById(`campus-${camp}-count`).textContent = totalC;
+            });
 
+            // Recent books (hiển thị theo campus đang chọn)
+            let filtered = books;
+            if (campus !== 'all') filtered = books.filter(b => b.campus === campus);
             const recent = filtered.slice(-5).reverse();
             const tbody = document.getElementById('recentBooksTable');
             if (recent.length === 0) {
@@ -1517,7 +1550,6 @@
                     (b.bookTitle && b.bookTitle.toLowerCase().includes(searchTerm))
                 );
             }
-            // sort by id descending (mới nhất trước)
             filtered.sort((a, b) => b.id - a.id);
 
             const container = document.getElementById('borrowList');
@@ -1543,6 +1575,7 @@
                             <span class="field"><strong>Người mượn:</strong> ${b.borrowerName || 'Không tên'}</span>
                             <span class="field"><strong>Ngày mượn:</strong> ${formatDate(b.borrowDate)}</span>
                             <span class="field"><strong>${returnDateDisplay}</strong></span>
+                            <span class="field">${getCampusBadge(b.campus)}</span>
                             <span class="field">${statusBadge}</span>
                         </div>
                         ${b.note ? `<div class="text-muted mt-2"><strong>Ghi chú:</strong> ${b.note}</div>` : ''}
@@ -1635,6 +1668,12 @@
             if (id) {
                 const idx = books.findIndex(b => b.id === parseInt(id));
                 if (idx !== -1) {
+                    // Kiểm tra nếu số lượng mới ít hơn số lượng đang mượn
+                    const available = getAvailableQuantity(parseInt(id));
+                    if (quantity < (books[idx].quantity - available)) {
+                        showToast(`Số lượng mới (${quantity}) nhỏ hơn số lượng đang mượn (${books[idx].quantity - available}), không thể cập nhật.`, 'error');
+                        return;
+                    }
                     books[idx] = { ...books[idx], title, author, isbn, publisher, year, quantity, campus, status, description };
                     saveToStorage();
                     showToast('✅ Đã cập nhật sách thành công!', 'success');
@@ -1646,8 +1685,7 @@
                 showToast('📚 Đã thêm sách mới thành công!', 'success');
             }
             closeModal('bookModal');
-            renderHome();
-            renderBooks();
+            renderAll();
         }
 
         // ============================================================
@@ -1655,15 +1693,21 @@
         // ============================================================
         function deleteBook(id) {
             if (currentUser !== 'admin') { showToast('Bạn không có quyền xóa sách.', 'error'); return; }
-            if (!confirm('Bạn có chắc chắn muốn xóa sách này?')) return;
+            const book = books.find(b => b.id === id);
+            if (!book) return;
+            const available = getAvailableQuantity(id);
+            if (available < book.quantity) {
+                showToast(`Không thể xóa sách vì đang có ${book.quantity - available} cuốn đang mượn.`, 'error');
+                return;
+            }
+            if (!confirm(`Bạn có chắc chắn muốn xóa sách "${book.title}"?`)) return;
             const idx = books.findIndex(b => b.id === id);
             if (idx !== -1) {
                 const title = books[idx].title;
                 books.splice(idx, 1);
                 saveToStorage();
                 showToast(`🗑️ Đã xóa sách "${title}"`, 'info');
-                renderHome();
-                renderBooks();
+                renderAll();
             }
         }
 
@@ -1679,7 +1723,7 @@
                 if (avail > 0) {
                     const opt = document.createElement('option');
                     opt.value = b.id;
-                    opt.textContent = `${b.title} (còn ${avail}/${b.quantity})`;
+                    opt.textContent = `${b.title} (còn ${avail}/${b.quantity}) - ${getCampusLabel(b.campus)}`;
                     select.appendChild(opt);
                 }
             });
@@ -1687,7 +1731,6 @@
                 showToast('Không có sách nào có sẵn để mượn.', 'error');
                 return;
             }
-            // set default dates
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('borrowDate').value = today;
             const future = new Date();
@@ -1729,6 +1772,7 @@
                 id: nextBorrowId++,
                 bookId: book.id,
                 bookTitle: book.title,
+                campus: book.campus,   // Lưu campus của sách để tính chính xác
                 quantity: quantity,
                 borrowerName: borrowerName,
                 borrowDate: borrowDate,
@@ -1740,17 +1784,16 @@
             };
             borrows.push(borrow);
             saveBorrowsToStorage();
+
             // Cập nhật trạng thái sách nếu số lượng còn 0
             if (getAvailableQuantity(bookId) === 0) {
                 const idx = books.findIndex(b => b.id === bookId);
                 if (idx !== -1) books[idx].status = 'borrowed';
                 saveToStorage();
             }
-            showToast(`📚 Đã mượn sách "${book.title}" (${quantity} cuốn)`, 'success');
+            showToast(`📚 Đã mượn sách "${book.title}" (${quantity} cuốn) tại ${getCampusLabel(book.campus)}`, 'success');
             closeModal('borrowModal');
-            renderHome();
-            renderBooks();
-            renderBorrowList();
+            renderAll();
         }
 
         // ============================================================
@@ -1778,9 +1821,7 @@
                 }
             }
             showToast(`✅ Đã trả sách "${borrow.bookTitle}"`, 'success');
-            renderHome();
-            renderBooks();
-            renderBorrowList();
+            renderAll();
         }
 
         // ============================================================
@@ -1822,7 +1863,6 @@
             renderBooks();
             renderBorrowList();
             updateAppNameUI();
-            // Load app name vào input settings
             document.getElementById('appNameInput').value = getAppName();
         }
 
@@ -1834,10 +1874,7 @@
             loadFromStorage();
             updateAppNameUI();
             checkSession();
-            // Nếu đã đăng nhập, render đầy đủ
-            if (currentUser) {
-                renderAll();
-            }
+            if (currentUser) renderAll();
         }
 
         init();
