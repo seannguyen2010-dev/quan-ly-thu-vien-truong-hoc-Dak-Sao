@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet" />
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <style>
         /* ===== RESET & BASE ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -49,9 +52,7 @@
             letter-spacing: 0.5px;
             line-height: 1.2;
         }
-        .sidebar .logo h2 span {
-            color: #fcd34d;
-        }
+        .sidebar .logo h2 span { color: #fcd34d; }
         .sidebar .nav-item {
             display: flex;
             align-items: center;
@@ -66,15 +67,8 @@
             transition: all 0.25s ease;
             text-decoration: none;
         }
-        .sidebar .nav-item i {
-            width: 24px;
-            font-size: 18px;
-            text-align: center;
-        }
-        .sidebar .nav-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
-        }
+        .sidebar .nav-item i { width: 24px; font-size: 18px; text-align: center; }
+        .sidebar .nav-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
         .sidebar .nav-item.active {
             background: rgba(252, 211, 77, 0.18);
             color: #fcd34d;
@@ -83,7 +77,7 @@
         .sidebar .campus-list {
             margin-top: 30px;
             padding-top: 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255,255,255,0.08);
         }
         .sidebar .campus-list .label {
             font-size: 12px;
@@ -106,14 +100,8 @@
             transition: all 0.2s ease;
             margin-bottom: 2px;
         }
-        .sidebar .campus-item:hover {
-            background: rgba(255, 255, 255, 0.06);
-            color: #fff;
-        }
-        .sidebar .campus-item.active {
-            background: rgba(255, 255, 255, 0.10);
-            color: #fff;
-        }
+        .sidebar .campus-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
+        .sidebar .campus-item.active { background: rgba(255,255,255,0.10); color: #fff; }
         .sidebar .campus-item .dot {
             width: 10px;
             height: 10px;
@@ -122,7 +110,7 @@
         }
         .sidebar .campus-item .badge {
             margin-left: auto;
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255,255,255,0.12);
             padding: 2px 10px;
             border-radius: 20px;
             font-size: 12px;
@@ -130,11 +118,7 @@
             color: #e2e8f0;
         }
         /* ===== MAIN CONTENT ===== */
-        .main {
-            flex: 1;
-            padding: 30px 35px;
-            overflow-y: auto;
-        }
+        .main { flex: 1; padding: 30px 35px; overflow-y: auto; }
         /* ===== TOP BAR ===== */
         .topbar {
             display: flex;
@@ -149,10 +133,7 @@
             font-weight: 700;
             color: #0b2a3e;
         }
-        .topbar .greeting h1 i {
-            color: #f59e0b;
-            margin-right: 8px;
-        }
+        .topbar .greeting h1 i { color: #f59e0b; margin-right: 8px; }
         .topbar .greeting p {
             color: #64748b;
             font-weight: 500;
@@ -172,14 +153,12 @@
             font-weight: 600;
             font-size: 14px;
             color: #1e2b3a;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .topbar .actions .date-badge i {
-            color: #f59e0b;
-        }
+        .topbar .actions .date-badge i { color: #f59e0b; }
         .user-info {
             background: #fff;
             padding: 6px 16px 6px 20px;
@@ -208,9 +187,7 @@
             border-radius: 8px;
             transition: background 0.2s;
         }
-        .user-info .logout-btn:hover {
-            background: #fee2e2;
-        }
+        .user-info .logout-btn:hover { background: #fee2e2; }
         /* ===== BANNER ===== */
         .banner {
             background: linear-gradient(135deg, #0b2a3e 0%, #1a4b6d 50%, #f59e0b 100%);
@@ -223,7 +200,7 @@
             flex-wrap: wrap;
             gap: 20px;
             color: #fff;
-            box-shadow: 0 8px 30px rgba(11, 42, 62, 0.25);
+            box-shadow: 0 8px 30px rgba(11,42,62,0.25);
             position: relative;
             overflow: hidden;
         }
@@ -234,20 +211,12 @@
             right: -10%;
             width: 300px;
             height: 300px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             border-radius: 50%;
             pointer-events: none;
         }
-        .banner .banner-text h2 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .banner .banner-text p {
-            font-size: 16px;
-            opacity: 0.9;
-            font-weight: 500;
-        }
+        .banner .banner-text h2 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+        .banner .banner-text p { font-size: 16px; opacity: 0.9; font-weight: 500; }
         .banner .banner-icon {
             font-size: 64px;
             color: #fcd34d;
@@ -259,11 +228,7 @@
             100% { transform: translateY(0px); }
         }
         @media (max-width: 600px) {
-            .banner {
-                padding: 20px 24px;
-                flex-direction: column;
-                text-align: center;
-            }
+            .banner { padding: 20px 24px; flex-direction: column; text-align: center; }
             .banner .banner-text h2 { font-size: 22px; }
             .banner .banner-icon { font-size: 48px; }
         }
@@ -278,17 +243,14 @@
             background: #fff;
             border-radius: 20px;
             padding: 22px 24px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
             display: flex;
             align-items: center;
             gap: 18px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s, box-shadow 0.2s;
             border-left: 5px solid;
         }
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
-        }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.07); }
         .stat-card .icon {
             width: 52px;
             height: 52px;
@@ -300,18 +262,8 @@
             color: #fff;
             flex-shrink: 0;
         }
-        .stat-card .info h3 {
-            font-size: 26px;
-            font-weight: 700;
-            color: #0b2a3e;
-            line-height: 1.2;
-        }
-        .stat-card .info p {
-            font-size: 14px;
-            font-weight: 600;
-            color: #64748b;
-            margin-top: 2px;
-        }
+        .stat-card .info h3 { font-size: 26px; font-weight: 700; color: #0b2a3e; line-height: 1.2; }
+        .stat-card .info p { font-size: 14px; font-weight: 600; color: #64748b; margin-top: 2px; }
         .stat-card:nth-child(1) { border-left-color: #3b82f6; }
         .stat-card:nth-child(1) .icon { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
         .stat-card:nth-child(2) { border-left-color: #f59e0b; }
@@ -329,15 +281,8 @@
             flex-wrap: wrap;
             gap: 12px;
         }
-        .section-header h2 {
-            font-size: 22px;
-            font-weight: 700;
-            color: #0b2a3e;
-        }
-        .section-header h2 i {
-            color: #f59e0b;
-            margin-right: 8px;
-        }
+        .section-header h2 { font-size: 22px; font-weight: 700; color: #0b2a3e; }
+        .section-header h2 i { color: #f59e0b; margin-right: 8px; }
         .btn {
             display: inline-flex;
             align-items: center;
@@ -372,7 +317,7 @@
             background: #fff;
             padding: 16px 20px;
             border-radius: 16px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
             margin-bottom: 24px;
             align-items: center;
         }
@@ -399,9 +344,7 @@
             outline: none;
         }
         .filter-bar select:focus,
-        .filter-bar input:focus {
-            border-color: #0b2a3e;
-        }
+        .filter-bar input:focus { border-color: #0b2a3e; }
         .filter-bar .search-box {
             display: flex;
             align-items: center;
@@ -412,9 +355,7 @@
             padding: 0 12px;
             transition: border 0.2s ease;
         }
-        .filter-bar .search-box:focus-within {
-            border-color: #0b2a3e;
-        }
+        .filter-bar .search-box:focus-within { border-color: #0b2a3e; }
         .filter-bar .search-box input {
             border: none;
             background: transparent;
@@ -422,26 +363,18 @@
             flex: 1;
             min-width: 140px;
         }
-        .filter-bar .search-box i {
-            color: #94a3b8;
-        }
+        .filter-bar .search-box i { color: #94a3b8; }
         /* ===== TABLE ===== */
         .table-wrapper {
             background: #fff;
             border-radius: 20px;
             padding: 0 0 8px 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             overflow: hidden;
             overflow-x: auto;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        table thead {
-            background: #f1f6fa;
-        }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table thead { background: #f1f6fa; }
         table thead th {
             padding: 16px 18px;
             text-align: left;
@@ -458,12 +391,8 @@
             color: #1e2b3a;
             vertical-align: middle;
         }
-        table tbody tr:hover {
-            background: #fafcff;
-        }
-        table tbody tr:last-child td {
-            border-bottom: none;
-        }
+        table tbody tr:hover { background: #fafcff; }
+        table tbody tr:last-child td { border-bottom: none; }
         .badge-campus {
             display: inline-block;
             padding: 4px 14px;
@@ -487,38 +416,28 @@
         .badge-status.maintenance { background: #fee2e2; color: #991b1b; }
         .badge-status.da-tra { background: #dbeafe; color: #1e40af; }
         .badge-status.dang-muon { background: #fef3c7; color: #92400e; }
-        .action-btns {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .action-btns .btn {
-            padding: 5px 12px;
-            font-size: 13px;
-            border-radius: 8px;
-        }
+        .action-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+        .action-btns .btn { padding: 5px 12px; font-size: 13px; border-radius: 8px; }
         /* ===== MODAL ===== */
         .modal-overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.45);
+            background: rgba(0,0,0,0.45);
             backdrop-filter: blur(4px);
             z-index: 999;
             align-items: center;
             justify-content: center;
             animation: fadeIn 0.25s ease;
         }
-        .modal-overlay.show {
-            display: flex;
-        }
+        .modal-overlay.show { display: flex; }
         .modal {
             background: #fff;
             border-radius: 28px;
             max-width: 600px;
             width: 94%;
             padding: 30px 34px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.20);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.20);
             max-height: 92vh;
             overflow-y: auto;
             animation: slideUp 0.3s ease;
@@ -531,15 +450,8 @@
             align-items: center;
             margin-bottom: 24px;
         }
-        .modal-header h3 {
-            font-size: 22px;
-            font-weight: 700;
-            color: #0b2a3e;
-        }
-        .modal-header h3 i {
-            color: #f59e0b;
-            margin-right: 10px;
-        }
+        .modal-header h3 { font-size: 22px; font-weight: 700; color: #0b2a3e; }
+        .modal-header h3 i { color: #f59e0b; margin-right: 10px; }
         .modal-close {
             background: none;
             border: none;
@@ -548,12 +460,8 @@
             color: #94a3b8;
             transition: color 0.2s ease;
         }
-        .modal-close:hover {
-            color: #ef4444;
-        }
-        .form-group {
-            margin-bottom: 18px;
-        }
+        .modal-close:hover { color: #ef4444; }
+        .form-group { margin-bottom: 18px; }
         .form-group label {
             display: block;
             font-weight: 600;
@@ -561,10 +469,7 @@
             color: #1e2b3a;
             margin-bottom: 5px;
         }
-        .form-group label .required {
-            color: #ef4444;
-            margin-left: 2px;
-        }
+        .form-group label .required { color: #ef4444; margin-left: 2px; }
         .form-group input,
         .form-group select,
         .form-group textarea {
@@ -581,18 +486,9 @@
         }
         .form-group input:focus,
         .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: #0b2a3e;
-        }
-        .form-group textarea {
-            resize: vertical;
-            min-height: 70px;
-        }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
+        .form-group textarea:focus { border-color: #0b2a3e; }
+        .form-group textarea { resize: vertical; min-height: 70px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         .modal-footer {
             display: flex;
             justify-content: flex-end;
@@ -607,15 +503,8 @@
             padding: 50px 20px;
             color: #94a3b8;
         }
-        .empty-state i {
-            font-size: 56px;
-            color: #cbd5e1;
-            margin-bottom: 12px;
-        }
-        .empty-state p {
-            font-size: 16px;
-            font-weight: 500;
-        }
+        .empty-state i { font-size: 56px; color: #cbd5e1; margin-bottom: 12px; }
+        .empty-state p { font-size: 16px; font-weight: 500; }
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             .sidebar { width: 200px; padding: 20px 14px; }
@@ -671,7 +560,7 @@
             color: #fff;
             font-weight: 600;
             font-size: 14px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -697,7 +586,7 @@
         #loginOverlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(6px);
             display: none;
             align-items: center;
@@ -714,32 +603,12 @@
             width: 94%;
             box-shadow: 0 30px 60px rgba(0,0,0,0.3);
         }
-        .login-box .logo {
-            text-align: center;
-            margin-bottom: 28px;
-        }
-        .login-box .logo i {
-            font-size: 48px;
-            color: #f59e0b;
-        }
-        .login-box .logo h2 {
-            font-size: 24px;
-            font-weight: 700;
-            color: #0b2a3e;
-            margin-top: 8px;
-        }
-        .login-box .logo p {
-            color: #64748b;
-            font-weight: 500;
-            font-size: 14px;
-        }
-        .login-box .form-group {
-            margin-bottom: 16px;
-        }
-        .login-box .form-group label {
-            font-weight: 600;
-            color: #1e2b3a;
-        }
+        .login-box .logo { text-align: center; margin-bottom: 28px; }
+        .login-box .logo i { font-size: 48px; color: #f59e0b; }
+        .login-box .logo h2 { font-size: 24px; font-weight: 700; color: #0b2a3e; margin-top: 8px; }
+        .login-box .logo p { color: #64748b; font-weight: 500; font-size: 14px; }
+        .login-box .form-group { margin-bottom: 16px; }
+        .login-box .form-group label { font-weight: 600; color: #1e2b3a; }
         .login-box .form-group input {
             width: 100%;
             padding: 12px 16px;
@@ -750,9 +619,7 @@
             outline: none;
             font-family: 'Quicksand', sans-serif;
         }
-        .login-box .form-group input:focus {
-            border-color: #0b2a3e;
-        }
+        .login-box .form-group input:focus { border-color: #0b2a3e; }
         .login-box .login-btn {
             width: 100%;
             padding: 14px;
@@ -766,10 +633,7 @@
             transition: transform 0.2s, box-shadow 0.2s;
             font-family: 'Quicksand', sans-serif;
         }
-        .login-box .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(11, 42, 62, 0.3);
-        }
+        .login-box .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(11,42,62,0.3); }
         .login-box .error-msg {
             color: #ef4444;
             font-size: 14px;
@@ -793,27 +657,12 @@
             gap: 16px 30px;
             align-items: center;
         }
-        .borrow-card .borrow-info .field {
-            font-size: 14px;
-        }
-        .borrow-card .borrow-info .field strong {
-            color: #0b2a3e;
-        }
-        .borrow-card .borrow-actions {
-            margin-top: 10px;
-            display: flex;
-            gap: 8px;
-        }
-        .text-muted {
-            color: #64748b;
-            font-size: 13px;
-        }
-        .text-success {
-            color: #10b981;
-        }
-        .text-danger {
-            color: #ef4444;
-        }
+        .borrow-card .borrow-info .field { font-size: 14px; }
+        .borrow-card .borrow-info .field strong { color: #0b2a3e; }
+        .borrow-card .borrow-actions { margin-top: 10px; display: flex; gap: 8px; }
+        .text-muted { color: #64748b; font-size: 13px; }
+        .text-success { color: #10b981; }
+        .text-danger { color: #ef4444; }
         .mt-2 { margin-top: 8px; }
         .mb-2 { margin-bottom: 8px; }
     </style>
@@ -849,26 +698,20 @@
             <i class="fas fa-book-open"></i>
             <h2 id="sidebarAppName">Thư Viện <span>School</span></h2>
         </div>
-
         <nav>
             <div class="nav-item active" data-page="home">
-                <i class="fas fa-home"></i>
-                <span>Trang chủ</span>
+                <i class="fas fa-home"></i><span>Trang chủ</span>
             </div>
             <div class="nav-item" data-page="books">
-                <i class="fas fa-books"></i>
-                <span>Quản lý sách</span>
+                <i class="fas fa-books"></i><span>Quản lý sách</span>
             </div>
             <div class="nav-item" data-page="borrow">
-                <i class="fas fa-hand-holding-heart"></i>
-                <span>Mượn/Trả sách</span>
+                <i class="fas fa-hand-holding-heart"></i><span>Mượn/Trả sách</span>
             </div>
             <div class="nav-item" data-page="settings" id="settingsNav" style="display:none;">
-                <i class="fas fa-cog"></i>
-                <span>Cài đặt</span>
+                <i class="fas fa-cog"></i><span>Cài đặt</span>
             </div>
         </nav>
-
         <div class="campus-list">
             <div class="label">🏫 Điểm trường</div>
             <div class="campus-item active" data-campus="all">
@@ -896,7 +739,6 @@
 
     <!-- ===== MAIN ===== -->
     <main class="main" id="mainContent">
-
         <!-- TOPBAR -->
         <div class="topbar">
             <div class="greeting">
@@ -919,48 +761,19 @@
 
         <!-- ===== PAGE: HOME ===== -->
         <div id="page-home">
-            <!-- BANNER -->
             <div class="banner">
                 <div class="banner-text">
                     <h2>📖 Chào mừng đến Thư viện</h2>
                     <p>Nơi tri thức được chia sẻ và khám phá mỗi ngày</p>
                 </div>
-                <div class="banner-icon">
-                    <i class="fas fa-book-reader"></i>
-                </div>
+                <div class="banner-icon"><i class="fas fa-book-reader"></i></div>
             </div>
-
-            <div class="stats-grid" id="statsGrid">
-                <div class="stat-card">
-                    <div class="icon"><i class="fas fa-book"></i></div>
-                    <div class="info">
-                        <h3 id="statTotal">0</h3>
-                        <p>Tổng số sách</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="icon"><i class="fas fa-check-circle"></i></div>
-                    <div class="info">
-                        <h3 id="statAvailable">0</h3>
-                        <p>Đang có sẵn</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="icon"><i class="fas fa-clock"></i></div>
-                    <div class="info">
-                        <h3 id="statBorrowed">0</h3>
-                        <p>Đang mượn</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="icon"><i class="fas fa-tools"></i></div>
-                    <div class="info">
-                        <h3 id="statMaintenance">0</h3>
-                        <p>Bảo trì</p>
-                    </div>
-                </div>
+            <div class="stats-grid">
+                <div class="stat-card"><div class="icon"><i class="fas fa-book"></i></div><div class="info"><h3 id="statTotal">0</h3><p>Tổng số sách</p></div></div>
+                <div class="stat-card"><div class="icon"><i class="fas fa-check-circle"></i></div><div class="info"><h3 id="statAvailable">0</h3><p>Đang có sẵn</p></div></div>
+                <div class="stat-card"><div class="icon"><i class="fas fa-clock"></i></div><div class="info"><h3 id="statBorrowed">0</h3><p>Đang mượn</p></div></div>
+                <div class="stat-card"><div class="icon"><i class="fas fa-tools"></i></div><div class="info"><h3 id="statMaintenance">0</h3><p>Bảo trì</p></div></div>
             </div>
-
             <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:16px; margin-bottom:28px;">
                 <div style="background:#fff; border-radius:16px; padding:18px 22px; box-shadow:0 2px 12px rgba(0,0,0,0.04); border-left:5px solid #3b82f6;">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -993,7 +806,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="section-header">
                 <h2><i class="fas fa-list-ul"></i> Danh sách sách gần đây</h2>
                 <button class="btn btn-primary btn-sm" onclick="navigateTo('books')">
@@ -1002,9 +814,7 @@
             </div>
             <div class="table-wrapper">
                 <table>
-                    <thead>
-                        <tr><th>#</th><th>Tên sách</th><th>Tác giả</th><th>Điểm trường</th><th>Trạng thái</th></tr>
-                    </thead>
+                    <thead><tr><th>#</th><th>Tên sách</th><th>Tác giả</th><th>Điểm trường</th><th>Trạng thái</th></tr></thead>
                     <tbody id="recentBooksTable"></tbody>
                 </table>
             </div>
@@ -1118,7 +928,6 @@
                 <div id="passwordMsg" style="margin-top:12px; font-weight:600;"></div>
             </div>
         </div>
-
     </main>
 
     <!-- ===== MODAL: Sách ===== -->
@@ -1248,6 +1057,22 @@
 
     <script>
         // ============================================================
+        // CẤU HÌNH FIREBASE - THAY THẾ BẰNG CONFIG CỦA BẠN
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyAC1kah9MCMO4bnKeLkn86gtCPgr-F5WOc",
+            authDomain: "quanlythuvien-78283.firebaseapp.com",
+            projectId: "quanlythuvien-78283",
+            storageBucket: "quanlythuvien-78283.firebasestorage.app",
+            messagingSenderId: "541218303322",
+            appId: "1:541218303322:web:69cdba679b7bc0442f1763"
+        };
+
+        // Khởi tạo Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // ============================================================
         // AUTHENTICATION
         // ============================================================
         const ADMIN_KEY = 'library_admin_password';
@@ -1255,6 +1080,9 @@
         const APP_NAME_KEY = 'library_app_name';
 
         let currentUser = null;
+        let books = [];
+        let borrows = [];
+        let currentCampus = 'all';
 
         function getAdminPassword() {
             let pwd = localStorage.getItem(ADMIN_KEY);
@@ -1277,133 +1105,121 @@
             document.getElementById('sidebarAppName').innerHTML = name.replace('School', '<span>School</span>') || 'Thư Viện <span>School</span>';
         }
 
-        function login(e) {
-            e.preventDefault();
-            const username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-            const errorEl = document.getElementById('loginError');
-            if (!username || !password) { errorEl.textContent = 'Vui lòng nhập đầy đủ thông tin.'; return; }
-            if (username === 'admin') {
-                if (password === getAdminPassword()) {
-                    currentUser = 'admin';
-                    localStorage.setItem(SESSION_KEY, 'admin');
-                    errorEl.textContent = '';
-                    document.getElementById('loginOverlay').classList.remove('show');
-                    applyPermissions();
-                    showToast('Đăng nhập thành công!', 'success');
-                    renderAll();
-                    return;
-                } else {
-                    errorEl.textContent = 'Sai mật khẩu. Vui lòng thử lại.';
-                    return;
-                }
-            } else {
-                currentUser = 'user';
-                localStorage.setItem(SESSION_KEY, 'user');
-                errorEl.textContent = '';
-                document.getElementById('loginOverlay').classList.remove('show');
-                applyPermissions();
-                showToast('Chào mừng bạn! (Chế độ xem)', 'info');
+        // ============================================================
+        // FIREBASE CRUD - BOOKS
+        // ============================================================
+        async function loadBooksFromFirebase() {
+            try {
+                const snapshot = await db.collection('books').orderBy('createdAt', 'asc').get();
+                books = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    books.push({ id: doc.id, ...data });
+                });
                 renderAll();
-                return;
+            } catch (error) {
+                showToast('Lỗi tải dữ liệu sách: ' + error.message, 'error');
             }
         }
 
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem(SESSION_KEY);
-            document.getElementById('loginOverlay').classList.add('show');
-            document.getElementById('loginError').textContent = '';
-            document.getElementById('loginPassword').value = '';
+        async function addBookToFirebase(bookData) {
+            try {
+                const docRef = await db.collection('books').add({
+                    ...bookData,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                const newBook = { id: docRef.id, ...bookData };
+                books.push(newBook);
+                renderAll();
+                return newBook;
+            } catch (error) {
+                showToast('Lỗi thêm sách: ' + error.message, 'error');
+                return null;
+            }
         }
 
-        function checkSession() {
-            const session = localStorage.getItem(SESSION_KEY);
-            if (session === 'admin') { currentUser = 'admin'; document.getElementById('loginOverlay').classList.remove('show'); applyPermissions(); renderAll(); }
-            else if (session === 'user') { currentUser = 'user'; document.getElementById('loginOverlay').classList.remove('show'); applyPermissions(); renderAll(); }
-            else { currentUser = null; document.getElementById('loginOverlay').classList.add('show'); document.getElementById('mainContent').style.opacity = '0.3'; document.getElementById('sidebar').style.opacity = '0.3'; }
+        async function updateBookInFirebase(bookId, updatedData) {
+            try {
+                await db.collection('books').doc(bookId).update(updatedData);
+                const idx = books.findIndex(b => b.id === bookId);
+                if (idx !== -1) {
+                    books[idx] = { ...books[idx], ...updatedData };
+                    renderAll();
+                }
+                return true;
+            } catch (error) {
+                showToast('Lỗi cập nhật sách: ' + error.message, 'error');
+                return false;
+            }
         }
 
-        function applyPermissions() {
-            const isAdmin = (currentUser === 'admin');
-            document.getElementById('addBookBtn').style.display = isAdmin ? 'inline-flex' : 'none';
-            document.getElementById('borrowBtn').style.display = isAdmin ? 'inline-flex' : 'none';
-            document.getElementById('settingsNav').style.display = isAdmin ? 'flex' : 'none';
-            document.getElementById('userName').textContent = isAdmin ? 'Admin' : 'Người dùng';
-            document.getElementById('userRole').textContent = isAdmin ? 'Quản trị viên' : 'Người dùng';
-            document.getElementById('mainContent').style.opacity = '1';
-            document.getElementById('sidebar').style.opacity = '1';
+        async function deleteBookFromFirebase(bookId) {
+            try {
+                await db.collection('books').doc(bookId).delete();
+                books = books.filter(b => b.id !== bookId);
+                renderAll();
+                return true;
+            } catch (error) {
+                showToast('Lỗi xóa sách: ' + error.message, 'error');
+                return false;
+            }
         }
 
         // ============================================================
-        // DATA - BOOKS & BORROWS
+        // FIREBASE CRUD - BORROWS
         // ============================================================
-        let books = [];
-        let nextId = 1;
-        let borrows = [];
-        let nextBorrowId = 1;
-        let currentCampus = 'all';
+        async function loadBorrowsFromFirebase() {
+            try {
+                const snapshot = await db.collection('borrows').orderBy('createdAt', 'asc').get();
+                borrows = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    borrows.push({ id: doc.id, ...data });
+                });
+                renderAll();
+            } catch (error) {
+                showToast('Lỗi tải dữ liệu mượn: ' + error.message, 'error');
+            }
+        }
 
-        const STORAGE_KEY = 'library_books';
-        const ID_KEY = 'library_nextId';
-        const BORROW_KEY = 'library_borrows';
-        const BORROW_ID_KEY = 'library_nextBorrowId';
+        async function addBorrowToFirebase(borrowData) {
+            try {
+                const docRef = await db.collection('borrows').add({
+                    ...borrowData,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                const newBorrow = { id: docRef.id, ...borrowData };
+                borrows.push(newBorrow);
+                renderAll();
+                return newBorrow;
+            } catch (error) {
+                showToast('Lỗi mượn sách: ' + error.message, 'error');
+                return null;
+            }
+        }
 
+        async function updateBorrowInFirebase(borrowId, updatedData) {
+            try {
+                await db.collection('borrows').doc(borrowId).update(updatedData);
+                const idx = borrows.findIndex(b => b.id === borrowId);
+                if (idx !== -1) {
+                    borrows[idx] = { ...borrows[idx], ...updatedData };
+                    renderAll();
+                }
+                return true;
+            } catch (error) {
+                showToast('Lỗi cập nhật phiếu mượn: ' + error.message, 'error');
+                return false;
+            }
+        }
+
+        // ============================================================
+        // CORE LOGIC
+        // ============================================================
         const campusLabels = { main: 'Chính (THCS)', branch1: 'Lẻ 1 (TH)', branch2: 'Lẻ 2 (THCS)' };
         const campusColors = { main: 'main', branch1: 'branch1', branch2: 'branch2' };
         const statusLabels = { available: 'Có sẵn', borrowed: 'Đang mượn', maintenance: 'Bảo trì' };
 
-        function loadFromStorage() {
-            const storedBooks = localStorage.getItem(STORAGE_KEY);
-            const storedId = localStorage.getItem(ID_KEY);
-            if (storedBooks) {
-                books = JSON.parse(storedBooks);
-                nextId = storedId ? parseInt(storedId) : (books.length > 0 ? Math.max(...books.map(b => b.id)) + 1 : 1);
-            } else {
-                seedData();
-                saveToStorage();
-            }
-            const storedBorrows = localStorage.getItem(BORROW_KEY);
-            const storedBorrowId = localStorage.getItem(BORROW_ID_KEY);
-            if (storedBorrows) {
-                borrows = JSON.parse(storedBorrows);
-                nextBorrowId = storedBorrowId ? parseInt(storedBorrowId) : (borrows.length > 0 ? Math.max(...borrows.map(b => b.id)) + 1 : 1);
-            } else {
-                borrows = [];
-                nextBorrowId = 1;
-                saveBorrowsToStorage();
-            }
-        }
-
-        function saveToStorage() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
-            localStorage.setItem(ID_KEY, String(nextId));
-        }
-
-        function saveBorrowsToStorage() {
-            localStorage.setItem(BORROW_KEY, JSON.stringify(borrows));
-            localStorage.setItem(BORROW_ID_KEY, String(nextBorrowId));
-        }
-
-        function seedData() {
-            const sample = [
-                { title: 'Toán học lớp 6', author: 'Nguyễn Văn A', isbn: '978-604-1-00123-4', publisher: 'GD Việt Nam', year: 2023, quantity: 12, campus: 'main', status: 'available', description: 'Sách giáo khoa Toán 6' },
-                { title: 'Ngữ văn lớp 7', author: 'Trần Thị B', isbn: '978-604-1-00456-7', publisher: 'GD Việt Nam', year: 2023, quantity: 8, campus: 'main', status: 'available', description: 'SGK Ngữ văn 7' },
-                { title: 'Tiếng Anh lớp 5', author: 'Lê Văn C', isbn: '978-604-1-00789-0', publisher: 'GD Việt Nam', year: 2023, quantity: 15, campus: 'branch1', status: 'available', description: 'SGK Tiếng Anh 5' },
-                { title: 'Khoa học lớp 4', author: 'Phạm Thị D', isbn: '978-604-1-00112-3', publisher: 'GD Việt Nam', year: 2023, quantity: 10, campus: 'branch1', status: 'available', description: 'SGK Khoa học 4' },
-                { title: 'Lịch sử lớp 8', author: 'Hoàng Văn E', isbn: '978-604-1-00345-6', publisher: 'GD Việt Nam', year: 2023, quantity: 6, campus: 'branch2', status: 'maintenance', description: 'SGK Lịch sử 8' },
-                { title: 'Địa lý lớp 9', author: 'Ngô Thị F', isbn: '978-604-1-00678-9', publisher: 'GD Việt Nam', year: 2023, quantity: 9, campus: 'branch2', status: 'available', description: 'SGK Địa lý 9' },
-                { title: 'Tin học lớp 6', author: 'Đặng Văn G', isbn: '978-604-1-00901-1', publisher: 'GD Việt Nam', year: 2023, quantity: 7, campus: 'main', status: 'available', description: 'SGK Tin học 6' },
-                { title: 'Âm nhạc lớp 3', author: 'Mai Thị H', isbn: '978-604-1-00234-5', publisher: 'GD Việt Nam', year: 2023, quantity: 14, campus: 'branch1', status: 'available', description: 'SGK Âm nhạc 3' },
-                { title: 'Mỹ thuật lớp 2', author: 'Vũ Văn I', isbn: '978-604-1-00567-8', publisher: 'GD Việt Nam', year: 2023, quantity: 11, campus: 'branch1', status: 'available', description: 'SGK Mỹ thuật 2' },
-                { title: 'Giáo dục công dân lớp 7', author: 'Lý Thị K', isbn: '978-604-1-00890-2', publisher: 'GD Việt Nam', year: 2023, quantity: 5, campus: 'main', status: 'maintenance', description: 'SGK GDCD 7' },
-            ];
-            sample.forEach((b) => { books.push({ id: nextId++, ...b }); });
-        }
-
-        // ============================================================
-        // CORE LOGIC: getAvailableQuantity (tính theo campus)
-        // ============================================================
         function getAvailableQuantity(bookId) {
             const book = books.find(b => b.id === bookId);
             if (!book) return 0;
@@ -1460,6 +1276,78 @@
             toast.innerHTML = `<i class="fas ${icon}"></i><span>${message}</span><button class="toast-close" onclick="this.parentElement.remove()">&times;</button>`;
             container.appendChild(toast);
             setTimeout(() => { if (toast.parentElement) toast.remove(); }, 4000);
+        }
+
+        // ============================================================
+        // LOGIN / LOGOUT
+        // ============================================================
+        function login(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const errorEl = document.getElementById('loginError');
+            if (!username || !password) { errorEl.textContent = 'Vui lòng nhập đầy đủ thông tin.'; return; }
+            if (username === 'admin') {
+                if (password === getAdminPassword()) {
+                    currentUser = 'admin';
+                    localStorage.setItem(SESSION_KEY, 'admin');
+                    errorEl.textContent = '';
+                    document.getElementById('loginOverlay').classList.remove('show');
+                    applyPermissions();
+                    showToast('Đăng nhập thành công!', 'success');
+                    loadBooksFromFirebase();
+                    loadBorrowsFromFirebase();
+                    return;
+                } else {
+                    errorEl.textContent = 'Sai mật khẩu. Vui lòng thử lại.';
+                    return;
+                }
+            } else {
+                currentUser = 'user';
+                localStorage.setItem(SESSION_KEY, 'user');
+                errorEl.textContent = '';
+                document.getElementById('loginOverlay').classList.remove('show');
+                applyPermissions();
+                showToast('Chào mừng bạn! (Chế độ xem)', 'info');
+                loadBooksFromFirebase();
+                loadBorrowsFromFirebase();
+                return;
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem(SESSION_KEY);
+            document.getElementById('loginOverlay').classList.add('show');
+            document.getElementById('loginError').textContent = '';
+            document.getElementById('loginPassword').value = '';
+        }
+
+        function checkSession() {
+            const session = localStorage.getItem(SESSION_KEY);
+            if (session === 'admin' || session === 'user') {
+                currentUser = session;
+                document.getElementById('loginOverlay').classList.remove('show');
+                applyPermissions();
+                loadBooksFromFirebase();
+                loadBorrowsFromFirebase();
+            } else {
+                currentUser = null;
+                document.getElementById('loginOverlay').classList.add('show');
+                document.getElementById('mainContent').style.opacity = '0.3';
+                document.getElementById('sidebar').style.opacity = '0.3';
+            }
+        }
+
+        function applyPermissions() {
+            const isAdmin = (currentUser === 'admin');
+            document.getElementById('addBookBtn').style.display = isAdmin ? 'inline-flex' : 'none';
+            document.getElementById('borrowBtn').style.display = isAdmin ? 'inline-flex' : 'none';
+            document.getElementById('settingsNav').style.display = isAdmin ? 'flex' : 'none';
+            document.getElementById('userName').textContent = isAdmin ? 'Admin' : 'Người dùng';
+            document.getElementById('userRole').textContent = isAdmin ? 'Quản trị viên' : 'Người dùng';
+            document.getElementById('mainContent').style.opacity = '1';
+            document.getElementById('sidebar').style.opacity = '1';
         }
 
         // ============================================================
@@ -1584,13 +1472,13 @@
                 const available = getAvailableQuantity(b.id);
                 const actions = isAdmin ? `
                     <div class="action-btns">
-                        <button class="btn btn-warning btn-sm" onclick="openEditModal(${b.id})"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteBook(${b.id})"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-warning btn-sm" onclick="openEditModal('${b.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteBook('${b.id}')"><i class="fas fa-trash"></i></button>
                     </div>
                 ` : `<span style="color:#94a3b8; font-size:13px;">Chỉ xem</span>`;
                 return `
                     <tr>
-                        <td>${b.id}</td>
+                        <td>${b.id.slice(0,6)}</td>
                         <td><strong>${b.title}</strong></td>
                         <td>${b.author}</td>
                         <td>${b.isbn || '—'}</td>
@@ -1619,7 +1507,7 @@
                     (b.bookTitle && b.bookTitle.toLowerCase().includes(searchTerm))
                 );
             }
-            filtered.sort((a, b) => b.id - a.id);
+            filtered.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
 
             const container = document.getElementById('borrowList');
             if (filtered.length === 0) {
@@ -1634,7 +1522,7 @@
                     `<span class="badge-status da-tra">Đã trả</span>`;
                 const returnDateDisplay = b.status === 'da-tra' ? `Đã trả: ${formatDate(b.actualReturnDate)}` : `Dự kiến: ${formatDate(b.expectedReturnDate)}`;
                 const actions = (isAdmin && b.status === 'dang-muon') ?
-                    `<button class="btn btn-success btn-xs" onclick="returnBook(${b.id})"><i class="fas fa-undo"></i> Trả sách</button>` :
+                    `<button class="btn btn-success btn-xs" onclick="returnBook('${b.id}')"><i class="fas fa-undo"></i> Trả sách</button>` :
                     '';
                 return `
                     <div class="borrow-card">
@@ -1699,7 +1587,7 @@
             if (!b) return;
             document.getElementById('modalTitle').textContent = 'Chỉnh sửa sách';
             document.getElementById('modalSubmitBtn').innerHTML = '<i class="fas fa-save"></i> Cập nhật';
-            document.getElementById('editId').value = b.id;
+            document.getElementById('editId').value = id;
             document.getElementById('fTitle').value = b.title;
             document.getElementById('fAuthor').value = b.author;
             document.getElementById('fIsbn').value = b.isbn || '';
@@ -1718,9 +1606,9 @@
         });
 
         // ============================================================
-        // SAVE BOOK
+        // SAVE BOOK (Firebase)
         // ============================================================
-        function saveBook(e) {
+        async function saveBook(e) {
             e.preventDefault();
             if (currentUser !== 'admin') { showToast('Bạn không có quyền thực hiện thao tác này.', 'error'); return; }
             const id = document.getElementById('editId').value;
@@ -1734,32 +1622,25 @@
             const status = document.getElementById('fStatus').value;
             const description = document.getElementById('fDescription').value.trim();
             if (!title || !author || !quantity || !campus || !status) { showToast('Vui lòng điền đầy đủ các trường bắt buộc!', 'error'); return; }
+
+            const bookData = { title, author, isbn, publisher, year, quantity, campus, status, description };
+
             if (id) {
-                const idx = books.findIndex(b => b.id === parseInt(id));
-                if (idx !== -1) {
-                    const available = getAvailableQuantity(parseInt(id));
-                    if (quantity < (books[idx].quantity - available)) {
-                        showToast(`Số lượng mới (${quantity}) nhỏ hơn số lượng đang mượn (${books[idx].quantity - available}), không thể cập nhật.`, 'error');
-                        return;
-                    }
-                    books[idx] = { ...books[idx], title, author, isbn, publisher, year, quantity, campus, status, description };
-                    saveToStorage();
-                    showToast('✅ Đã cập nhật sách thành công!', 'success');
-                }
+                const success = await updateBookInFirebase(id, bookData);
+                if (success) showToast('✅ Đã cập nhật sách thành công!', 'success');
+                else showToast('❌ Lỗi cập nhật sách!', 'error');
             } else {
-                const newBook = { id: nextId++, title, author, isbn, publisher, year, quantity, campus, status, description };
-                books.push(newBook);
-                saveToStorage();
-                showToast('📚 Đã thêm sách mới thành công!', 'success');
+                const newBook = await addBookToFirebase(bookData);
+                if (newBook) showToast('📚 Đã thêm sách mới thành công!', 'success');
+                else showToast('❌ Lỗi thêm sách!', 'error');
             }
             closeModal('bookModal');
-            renderAll();
         }
 
         // ============================================================
-        // DELETE BOOK
+        // DELETE BOOK (Firebase)
         // ============================================================
-        function deleteBook(id) {
+        async function deleteBook(id) {
             if (currentUser !== 'admin') { showToast('Bạn không có quyền xóa sách.', 'error'); return; }
             const book = books.find(b => b.id === id);
             if (!book) return;
@@ -1769,18 +1650,13 @@
                 return;
             }
             if (!confirm(`Bạn có chắc chắn muốn xóa sách "${book.title}"?`)) return;
-            const idx = books.findIndex(b => b.id === id);
-            if (idx !== -1) {
-                const title = books[idx].title;
-                books.splice(idx, 1);
-                saveToStorage();
-                showToast(`🗑️ Đã xóa sách "${title}"`, 'info');
-                renderAll();
-            }
+            const success = await deleteBookFromFirebase(id);
+            if (success) showToast(`🗑️ Đã xóa sách "${book.title}"`, 'info');
+            else showToast('❌ Lỗi xóa sách!', 'error');
         }
 
         // ============================================================
-        // BORROW BOOK
+        // BORROW BOOK (Firebase)
         // ============================================================
         document.getElementById('borrowCampus').addEventListener('change', filterBooksByCampus);
 
@@ -1827,10 +1703,10 @@
             document.getElementById('borrowModal').classList.add('show');
         }
 
-        function borrowBook(e) {
+        async function borrowBook(e) {
             e.preventDefault();
             if (currentUser !== 'admin') { showToast('Bạn không có quyền mượn sách.', 'error'); return; }
-            const bookId = parseInt(document.getElementById('borrowBookSelect').value);
+            const bookId = document.getElementById('borrowBookSelect').value;
             const quantity = parseInt(document.getElementById('borrowQuantity').value);
             const borrowerName = document.getElementById('borrowerName').value.trim();
             const borrowDate = document.getElementById('borrowDate').value;
@@ -1853,58 +1729,57 @@
                 return;
             }
 
-            const borrow = {
-                id: nextBorrowId++,
+            const borrowData = {
                 bookId: book.id,
                 bookTitle: book.title,
                 campus: book.campus,
-                quantity: quantity,
-                borrowerName: borrowerName,
-                borrowDate: borrowDate,
-                expectedReturnDate: expectedReturnDate,
+                quantity,
+                borrowerName,
+                borrowDate,
+                expectedReturnDate,
                 actualReturnDate: null,
                 status: 'dang-muon',
-                note: note,
-                createdAt: new Date().toISOString()
+                note
             };
-            borrows.push(borrow);
-            saveBorrowsToStorage();
 
-            if (getAvailableQuantity(bookId) === 0) {
-                const idx = books.findIndex(b => b.id === bookId);
-                if (idx !== -1) books[idx].status = 'borrowed';
-                saveToStorage();
+            const newBorrow = await addBorrowToFirebase(borrowData);
+            if (newBorrow) {
+                // Cập nhật trạng thái sách nếu hết
+                if (getAvailableQuantity(bookId) === 0) {
+                    await updateBookInFirebase(bookId, { status: 'borrowed' });
+                }
+                showToast(`📚 Đã mượn sách "${book.title}" (${quantity} cuốn)`, 'success');
+                closeModal('borrowModal');
+            } else {
+                showToast('❌ Lỗi mượn sách!', 'error');
             }
-            showToast(`📚 Đã mượn sách "${book.title}" (${quantity} cuốn) tại ${getCampusLabel(book.campus)}`, 'success');
-            closeModal('borrowModal');
-            renderAll();
         }
 
         // ============================================================
-        // RETURN BOOK
+        // RETURN BOOK (Firebase)
         // ============================================================
-        function returnBook(borrowId) {
+        async function returnBook(borrowId) {
             if (currentUser !== 'admin') { showToast('Bạn không có quyền trả sách.', 'error'); return; }
             const borrow = borrows.find(b => b.id === borrowId);
             if (!borrow) return;
             if (borrow.status === 'da-tra') { showToast('Sách đã được trả rồi.', 'info'); return; }
             if (!confirm(`Xác nhận trả sách "${borrow.bookTitle}" (${borrow.quantity} cuốn)?`)) return;
 
-            borrow.status = 'da-tra';
-            borrow.actualReturnDate = new Date().toISOString().split('T')[0];
-            saveBorrowsToStorage();
-
-            const book = books.find(b => b.id === borrow.bookId);
-            if (book) {
-                const avail = getAvailableQuantity(book.id);
-                if (avail > 0) {
-                    const idx = books.findIndex(b => b.id === book.id);
-                    if (idx !== -1) books[idx].status = 'available';
-                    saveToStorage();
+            const updateData = {
+                status: 'da-tra',
+                actualReturnDate: new Date().toISOString().split('T')[0]
+            };
+            const success = await updateBorrowInFirebase(borrowId, updateData);
+            if (success) {
+                // Cập nhật lại trạng thái sách
+                const book = books.find(b => b.id === borrow.bookId);
+                if (book && getAvailableQuantity(book.id) > 0) {
+                    await updateBookInFirebase(book.id, { status: 'available' });
                 }
+                showToast(`✅ Đã trả sách "${borrow.bookTitle}"`, 'success');
+            } else {
+                showToast('❌ Lỗi trả sách!', 'error');
             }
-            showToast(`✅ Đã trả sách "${borrow.bookTitle}"`, 'success');
-            renderAll();
         }
 
         // ============================================================
@@ -1954,12 +1829,14 @@
         // ============================================================
         function init() {
             document.getElementById('currentDate').textContent = getToday();
-            loadFromStorage();
             updateAppNameUI();
             checkSession();
-            if (currentUser) renderAll();
         }
 
+        // Khi chưa đăng nhập, vẫn load dữ liệu sau khi đăng nhập
+        // Đã có trong checkSession và login
+
+        // Gọi init khi trang load
         init();
     </script>
 </body>
