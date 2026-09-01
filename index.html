@@ -1057,7 +1057,7 @@
 
     <script>
         // ============================================================
-        // CẤU HÌNH FIREBASE - THAY THẾ BẰNG CONFIG CỦA BẠN
+        // CẤU HÌNH FIREBASE - ĐÃ ĐIỀN ĐÚNG CONFIG CỦA BẠN
         // ============================================================
         const firebaseConfig = {
             apiKey: "AIzaSyAC1kah9MCMO4bnKeLkn86gtCPgr-F5WOc",
@@ -1118,6 +1118,7 @@
                 });
                 renderAll();
             } catch (error) {
+                console.error('Lỗi tải sách:', error);
                 showToast('Lỗi tải dữ liệu sách: ' + error.message, 'error');
             }
         }
@@ -1133,6 +1134,7 @@
                 renderAll();
                 return newBook;
             } catch (error) {
+                console.error('Lỗi thêm sách:', error);
                 showToast('Lỗi thêm sách: ' + error.message, 'error');
                 return null;
             }
@@ -1148,6 +1150,7 @@
                 }
                 return true;
             } catch (error) {
+                console.error('Lỗi cập nhật sách:', error);
                 showToast('Lỗi cập nhật sách: ' + error.message, 'error');
                 return false;
             }
@@ -1160,6 +1163,7 @@
                 renderAll();
                 return true;
             } catch (error) {
+                console.error('Lỗi xóa sách:', error);
                 showToast('Lỗi xóa sách: ' + error.message, 'error');
                 return false;
             }
@@ -1178,6 +1182,7 @@
                 });
                 renderAll();
             } catch (error) {
+                console.error('Lỗi tải mượn:', error);
                 showToast('Lỗi tải dữ liệu mượn: ' + error.message, 'error');
             }
         }
@@ -1193,6 +1198,7 @@
                 renderAll();
                 return newBorrow;
             } catch (error) {
+                console.error('Lỗi mượn sách:', error);
                 showToast('Lỗi mượn sách: ' + error.message, 'error');
                 return null;
             }
@@ -1208,6 +1214,7 @@
                 }
                 return true;
             } catch (error) {
+                console.error('Lỗi cập nhật mượn:', error);
                 showToast('Lỗi cập nhật phiếu mượn: ' + error.message, 'error');
                 return false;
             }
@@ -1275,7 +1282,7 @@
             const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
             toast.innerHTML = `<i class="fas ${icon}"></i><span>${message}</span><button class="toast-close" onclick="this.parentElement.remove()">&times;</button>`;
             container.appendChild(toast);
-            setTimeout(() => { if (toast.parentElement) toast.remove(); }, 4000);
+            setTimeout(() => { if (toast.parentElement) toast.remove(); }, 5000);
         }
 
         // ============================================================
@@ -1606,11 +1613,15 @@
         });
 
         // ============================================================
-        // SAVE BOOK (Firebase)
+        // SAVE BOOK (Firebase) - CÓ BẮT LỖI CHI TIẾT
         // ============================================================
         async function saveBook(e) {
             e.preventDefault();
-            if (currentUser !== 'admin') { showToast('Bạn không có quyền thực hiện thao tác này.', 'error'); return; }
+            if (currentUser !== 'admin') {
+                showToast('Bạn không có quyền thực hiện thao tác này.', 'error');
+                return;
+            }
+
             const id = document.getElementById('editId').value;
             const title = document.getElementById('fTitle').value.trim();
             const author = document.getElementById('fAuthor').value.trim();
@@ -1621,20 +1632,44 @@
             const campus = document.getElementById('fCampus').value;
             const status = document.getElementById('fStatus').value;
             const description = document.getElementById('fDescription').value.trim();
-            if (!title || !author || !quantity || !campus || !status) { showToast('Vui lòng điền đầy đủ các trường bắt buộc!', 'error'); return; }
+
+            if (!title || !author || !quantity || !campus || !status) {
+                showToast('Vui lòng điền đầy đủ các trường bắt buộc!', 'error');
+                return;
+            }
 
             const bookData = { title, author, isbn, publisher, year, quantity, campus, status, description };
 
-            if (id) {
-                const success = await updateBookInFirebase(id, bookData);
-                if (success) showToast('✅ Đã cập nhật sách thành công!', 'success');
-                else showToast('❌ Lỗi cập nhật sách!', 'error');
-            } else {
-                const newBook = await addBookToFirebase(bookData);
-                if (newBook) showToast('📚 Đã thêm sách mới thành công!', 'success');
-                else showToast('❌ Lỗi thêm sách!', 'error');
+            // Hiển thị trạng thái loading
+            const submitBtn = document.getElementById('modalSubmitBtn');
+            const originalHtml = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang lưu...';
+            submitBtn.disabled = true;
+
+            try {
+                if (id) {
+                    const success = await updateBookInFirebase(id, bookData);
+                    if (success) {
+                        showToast('✅ Đã cập nhật sách thành công!', 'success');
+                    } else {
+                        showToast('❌ Lỗi cập nhật sách!', 'error');
+                    }
+                } else {
+                    const newBook = await addBookToFirebase(bookData);
+                    if (newBook) {
+                        showToast('📚 Đã thêm sách mới thành công!', 'success');
+                    } else {
+                        showToast('❌ Lỗi thêm sách!', 'error');
+                    }
+                }
+                closeModal('bookModal');
+            } catch (err) {
+                console.error('Lỗi không mong muốn khi lưu sách:', err);
+                showToast('Đã có lỗi xảy ra: ' + err.message, 'error');
+            } finally {
+                submitBtn.innerHTML = originalHtml;
+                submitBtn.disabled = false;
             }
-            closeModal('bookModal');
         }
 
         // ============================================================
@@ -1742,16 +1777,30 @@
                 note
             };
 
-            const newBorrow = await addBorrowToFirebase(borrowData);
-            if (newBorrow) {
-                // Cập nhật trạng thái sách nếu hết
-                if (getAvailableQuantity(bookId) === 0) {
-                    await updateBookInFirebase(bookId, { status: 'borrowed' });
+            // Hiển thị trạng thái loading
+            const submitBtn = document.querySelector('#borrowModal .btn-success');
+            const originalHtml = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
+            submitBtn.disabled = true;
+
+            try {
+                const newBorrow = await addBorrowToFirebase(borrowData);
+                if (newBorrow) {
+                    // Cập nhật trạng thái sách nếu hết
+                    if (getAvailableQuantity(bookId) === 0) {
+                        await updateBookInFirebase(bookId, { status: 'borrowed' });
+                    }
+                    showToast(`📚 Đã mượn sách "${book.title}" (${quantity} cuốn)`, 'success');
+                    closeModal('borrowModal');
+                } else {
+                    showToast('❌ Lỗi mượn sách!', 'error');
                 }
-                showToast(`📚 Đã mượn sách "${book.title}" (${quantity} cuốn)`, 'success');
-                closeModal('borrowModal');
-            } else {
-                showToast('❌ Lỗi mượn sách!', 'error');
+            } catch (err) {
+                console.error('Lỗi mượn sách:', err);
+                showToast('Đã có lỗi xảy ra: ' + err.message, 'error');
+            } finally {
+                submitBtn.innerHTML = originalHtml;
+                submitBtn.disabled = false;
             }
         }
 
@@ -1832,9 +1881,6 @@
             updateAppNameUI();
             checkSession();
         }
-
-        // Khi chưa đăng nhập, vẫn load dữ liệu sau khi đăng nhập
-        // Đã có trong checkSession và login
 
         // Gọi init khi trang load
         init();
