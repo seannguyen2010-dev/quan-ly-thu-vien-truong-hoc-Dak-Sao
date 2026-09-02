@@ -857,7 +857,16 @@
             <div class="table-wrapper">
                 <table>
                     <thead>
-                        <tr><th>#</th><th>Tên sách</th><th>Tác giả</th><th>ISBN</th><th>NXB</th><th>Điểm trường</th><th>Số lượng</th><th>Trạng thái</th><th>Thao tác</th></tr>
+                        <tr>
+                            <th>Tên sách</th>
+                            <th>Tác giả</th>
+                            <th>ISBN</th>
+                            <th>NXB</th>
+                            <th>Điểm trường</th>
+                            <th>Số lượng</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
                     </thead>
                     <tbody id="booksTable"></tbody>
                 </table>
@@ -1450,7 +1459,7 @@
         }
 
         // ============================================================
-        // RENDER: BOOKS
+        // RENDER: BOOKS (Đã xóa cột #)
         // ============================================================
         function renderBooks() {
             const campusFilter = document.getElementById('filterCampus').value;
@@ -1470,7 +1479,7 @@
 
             const tbody = document.getElementById('booksTable');
             if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" class="empty-state"><i class="fas fa-book-open"></i><p>Không tìm thấy sách nào</p></td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" class="empty-state"><i class="fas fa-book-open"></i><p>Không tìm thấy sách nào</p></td></tr>`;
                 return;
             }
 
@@ -1485,7 +1494,6 @@
                 ` : `<span style="color:#94a3b8; font-size:13px;">Chỉ xem</span>`;
                 return `
                     <tr>
-                        <td>${b.id.slice(0,6)}</td>
                         <td><strong>${b.title}</strong></td>
                         <td>${b.author}</td>
                         <td>${b.isbn || '—'}</td>
