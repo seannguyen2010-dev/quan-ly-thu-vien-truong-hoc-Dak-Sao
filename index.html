@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title id="appTitle">📚 Quản Lý Thư Viện Trường Học</title>
+    
+    <!-- Favicon - Biểu tượng quyển sách mở -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230b2a3e'/%3E%3Ctext x='50' y='55' font-size='45' text-anchor='middle' dominant-baseline='middle' fill='%23fcd34d'%3E📖%3C/text%3E%3C/svg%3E" />
+    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <!-- Google Font -->
@@ -1066,7 +1070,7 @@
 
     <script>
         // ============================================================
-        // CẤU HÌNH FIREBASE - ĐÃ ĐIỀN ĐÚNG CONFIG CỦA BẠN
+        // CẤU HÌNH FIREBASE
         // ============================================================
         const firebaseConfig = {
             apiKey: "AIzaSyAC1kah9MCMO4bnKeLkn86gtCPgr-F5WOc",
@@ -1077,35 +1081,67 @@
             appId: "1:541218303322:web:69cdba679b7bc0442f1763"
         };
 
-        // Khởi tạo Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
         // ============================================================
-        // AUTHENTICATION
+        // CONSTANTS
         // ============================================================
         const ADMIN_KEY = 'library_admin_password';
         const SESSION_KEY = 'library_session';
         const APP_NAME_KEY = 'library_app_name';
+        const APP_CONFIG_COLLECTION = 'settings';
+        const APP_CONFIG_DOC = 'appSettings';
 
         let currentUser = null;
         let books = [];
         let borrows = [];
         let currentCampus = 'all';
 
-        function getAdminPassword() {
-            let pwd = localStorage.getItem(ADMIN_KEY);
-            if (!pwd) { pwd = 'admin'; localStorage.setItem(ADMIN_KEY, pwd); }
-            return pwd;
+        // ============================================================
+        // APP NAME - LƯU TRÊN FIRESTORE
+        // ============================================================
+        async function loadAppNameFromFirebase() {
+            try {
+                const docRef = db.collection(APP_CONFIG_COLLECTION).doc(APP_CONFIG_DOC);
+                const docSnap = await docRef.get();
+                if (docSnap.exists) {
+                    const data = docSnap.data();
+                    if (data.appName) {
+                        localStorage.setItem(APP_NAME_KEY, data.appName);
+                    } else {
+                        await docRef.set({ appName: 'Thư Viện School' });
+                        localStorage.setItem(APP_NAME_KEY, 'Thư Viện School');
+                    }
+                } else {
+                    await docRef.set({ appName: 'Thư Viện School' });
+                    localStorage.setItem(APP_NAME_KEY, 'Thư Viện School');
+                }
+            } catch (error) {
+                console.error('Lỗi tải tên ứng dụng:', error);
+                if (!localStorage.getItem(APP_NAME_KEY)) {
+                    localStorage.setItem(APP_NAME_KEY, 'Thư Viện School');
+                }
+            }
+            updateAppNameUI();
         }
-        function setAdminPassword(newPwd) { localStorage.setItem(ADMIN_KEY, newPwd); }
+
+        async function setAppNameInFirebase(newName) {
+            try {
+                const docRef = db.collection(APP_CONFIG_COLLECTION).doc(APP_CONFIG_DOC);
+                await docRef.set({ appName: newName });
+                localStorage.setItem(APP_NAME_KEY, newName);
+                updateAppNameUI();
+                return true;
+            } catch (error) {
+                console.error('Lỗi cập nhật tên ứng dụng:', error);
+                return false;
+            }
+        }
 
         function getAppName() {
-            let name = localStorage.getItem(APP_NAME_KEY);
-            if (!name) { name = 'Thư Viện School'; localStorage.setItem(APP_NAME_KEY, name); }
-            return name;
+            return localStorage.getItem(APP_NAME_KEY) || 'Thư Viện School';
         }
-        function setAppName(name) { localStorage.setItem(APP_NAME_KEY, name); }
 
         function updateAppNameUI() {
             const name = getAppName();
@@ -1113,6 +1149,16 @@
             document.getElementById('loginAppName').textContent = name;
             document.getElementById('sidebarAppName').innerHTML = name.replace('School', '<span>School</span>') || 'Thư Viện <span>School</span>';
         }
+
+        // ============================================================
+        // AUTHENTICATION
+        // ============================================================
+        function getAdminPassword() {
+            let pwd = localStorage.getItem(ADMIN_KEY);
+            if (!pwd) { pwd = 'admin'; localStorage.setItem(ADMIN_KEY, pwd); }
+            return pwd;
+        }
+        function setAdminPassword(newPwd) { localStorage.setItem(ADMIN_KEY, newPwd); }
 
         // ============================================================
         // FIREBASE CRUD - BOOKS
@@ -1621,7 +1667,7 @@
         });
 
         // ============================================================
-        // SAVE BOOK (Firebase) - CÓ BẮT LỖI CHI TIẾT
+        // SAVE BOOK (Firebase)
         // ============================================================
         async function saveBook(e) {
             e.preventDefault();
@@ -1648,7 +1694,6 @@
 
             const bookData = { title, author, isbn, publisher, year, quantity, campus, status, description };
 
-            // Hiển thị trạng thái loading
             const submitBtn = document.getElementById('modalSubmitBtn');
             const originalHtml = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang lưu...';
@@ -1785,7 +1830,6 @@
                 note
             };
 
-            // Hiển thị trạng thái loading
             const submitBtn = document.querySelector('#borrowModal .btn-success');
             const originalHtml = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
@@ -1794,7 +1838,6 @@
             try {
                 const newBorrow = await addBorrowToFirebase(borrowData);
                 if (newBorrow) {
-                    // Cập nhật trạng thái sách nếu hết
                     if (getAvailableQuantity(bookId) === 0) {
                         await updateBookInFirebase(bookId, { status: 'borrowed' });
                     }
@@ -1828,7 +1871,6 @@
             };
             const success = await updateBorrowInFirebase(borrowId, updateData);
             if (success) {
-                // Cập nhật lại trạng thái sách
                 const book = books.find(b => b.id === borrow.bookId);
                 if (book && getAvailableQuantity(book.id) > 0) {
                     await updateBookInFirebase(book.id, { status: 'available' });
@@ -1840,7 +1882,7 @@
         }
 
         // ============================================================
-        // CHANGE PASSWORD & APP NAME
+        // CHANGE PASSWORD
         // ============================================================
         function changePassword(e) {
             e.preventDefault();
@@ -1859,15 +1901,24 @@
             showToast('Mật khẩu đã được cập nhật.', 'success');
         }
 
-        function changeAppName(e) {
+        // ============================================================
+        // CHANGE APP NAME (cập nhật lên Firestore)
+        // ============================================================
+        async function changeAppName(e) {
             e.preventDefault();
             if (currentUser !== 'admin') { showToast('Chỉ quản trị viên mới có thể đổi tên ứng dụng.', 'error'); return; }
             const newName = document.getElementById('appNameInput').value.trim();
             if (!newName) { document.getElementById('appNameMsg').innerHTML = '<span style="color:#ef4444;">Tên không được để trống.</span>'; return; }
-            setAppName(newName);
-            updateAppNameUI();
-            document.getElementById('appNameMsg').innerHTML = '<span style="color:#10b981;">✅ Tên ứng dụng đã được cập nhật!</span>';
-            showToast('Tên ứng dụng đã được đổi.', 'success');
+            
+            const success = await setAppNameInFirebase(newName);
+            if (success) {
+                document.getElementById('appNameMsg').innerHTML = '<span style="color:#10b981;">✅ Tên ứng dụng đã được cập nhật!</span>';
+                document.getElementById('appNameInput').value = newName;
+                showToast('Tên ứng dụng đã được đổi.', 'success');
+            } else {
+                document.getElementById('appNameMsg').innerHTML = '<span style="color:#ef4444;">❌ Lỗi cập nhật tên ứng dụng!</span>';
+                showToast('Lỗi cập nhật tên ứng dụng.', 'error');
+            }
         }
 
         // ============================================================
@@ -1884,13 +1935,12 @@
         // ============================================================
         // INIT
         // ============================================================
-        function init() {
+        async function init() {
             document.getElementById('currentDate').textContent = getToday();
-            updateAppNameUI();
+            await loadAppNameFromFirebase();
             checkSession();
         }
 
-        // Gọi init khi trang load
         init();
     </script>
 </body>
