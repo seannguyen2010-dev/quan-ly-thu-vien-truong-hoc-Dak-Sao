@@ -313,6 +313,85 @@
         .btn-outline:hover { border-color: #0b2a3e; background: rgba(11,42,62,0.04); }
         .btn-sm { padding: 6px 16px; font-size: 13px; }
         .btn-xs { padding: 4px 12px; font-size: 12px; }
+        /* ===== FLOATING ACTION BUTTON (Nút thêm sách nổi) ===== */
+        .fab-add-book {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.8);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .fab-add-book.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+        .fab-add-book:hover {
+            transform: translateY(-4px) scale(1.08);
+            box-shadow: 0 12px 32px rgba(16, 185, 129, 0.55);
+        }
+        .fab-add-book:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+        .fab-add-book .tooltip {
+            position: absolute;
+            right: 75px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #0b2a3e;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s ease;
+            font-family: 'Quicksand', sans-serif;
+            pointer-events: none;
+        }
+        .fab-add-book .tooltip::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 6px solid transparent;
+            border-left-color: #0b2a3e;
+        }
+        .fab-add-book:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+            right: 80px;
+        }
+        @media (max-width: 700px) {
+            .fab-add-book {
+                bottom: 20px;
+                right: 20px;
+                width: 54px;
+                height: 54px;
+                font-size: 22px;
+            }
+            .fab-add-book .tooltip {
+                display: none;
+            }
+        }
         /* ===== FILTER BAR ===== */
         .filter-bar {
             display: flex;
@@ -376,6 +455,33 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             overflow: hidden;
             overflow-x: auto;
+            max-height: 600px;
+            overflow-y: auto;
+            transition: max-height 0.3s ease;
+        }
+        .table-wrapper.expanded {
+            max-height: none;
+        }
+        .table-wrapper table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: #f1f6fa;
+        }
+        .table-wrapper::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
         table { width: 100%; border-collapse: collapse; font-size: 14px; }
         table thead { background: #f1f6fa; }
@@ -537,6 +643,7 @@
             .action-btns .btn { font-size: 12px; padding: 4px 10px; }
             .user-info { padding: 4px 12px 4px 16px; font-size: 13px; }
             .topbar .actions { flex-wrap: wrap; }
+            .table-wrapper { max-height: 500px; }
         }
         @media (max-width: 480px) {
             .sidebar .nav-item span { display: none; }
@@ -828,9 +935,14 @@
         <div id="page-books" style="display:none;">
             <div class="section-header">
                 <h2><i class="fas fa-books"></i> Quản lý sách</h2>
-                <button class="btn btn-success" id="addBookBtn" onclick="openAddModal()">
-                    <i class="fas fa-plus"></i> Thêm sách mới
-                </button>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button class="btn btn-outline btn-sm" id="toggleTableBtn" onclick="toggleTableHeight()">
+                        <i class="fas fa-expand"></i> Mở rộng
+                    </button>
+                    <button class="btn btn-success" id="addBookBtn" onclick="openAddModal()">
+                        <i class="fas fa-plus"></i> Thêm sách mới
+                    </button>
+                </div>
             </div>
             <div class="filter-bar">
                 <div class="filter-group">
@@ -1064,6 +1176,12 @@
             </form>
         </div>
     </div>
+
+    <!-- ===== FLOATING ACTION BUTTON: Thêm sách nhanh ===== -->
+    <button class="fab-add-book" id="fabAddBook" onclick="openAddModal()" title="Thêm sách mới">
+        <i class="fas fa-plus"></i>
+        <span class="tooltip">Thêm sách mới</span>
+    </button>
 
     <!-- ===== TOAST CONTAINER ===== -->
     <div class="toast-container" id="toastContainer"></div>
@@ -1383,6 +1501,7 @@
             document.getElementById('loginOverlay').classList.add('show');
             document.getElementById('loginError').textContent = '';
             document.getElementById('loginPassword').value = '';
+            document.getElementById('fabAddBook').classList.remove('show');
         }
 
         function checkSession() {
@@ -1435,6 +1554,10 @@
             if (page === 'home') renderHome();
             if (page === 'books') renderBooks();
             if (page === 'borrow') renderBorrowList();
+
+            // Ẩn nút nổi khi chuyển trang
+            const fab = document.getElementById('fabAddBook');
+            if (fab) fab.classList.remove('show');
         }
 
         document.querySelectorAll('.sidebar .nav-item').forEach(el => {
@@ -1667,7 +1790,7 @@
         });
 
         // ============================================================
-        // SAVE BOOK (Firebase)
+        // SAVE BOOK (Firebase) - ĐÃ SỬA LỖI UNDEFINED
         // ============================================================
         async function saveBook(e) {
             e.preventDefault();
@@ -1681,7 +1804,7 @@
             const author = document.getElementById('fAuthor').value.trim();
             const isbn = document.getElementById('fIsbn').value.trim();
             const publisher = document.getElementById('fPublisher').value.trim();
-            const year = parseInt(document.getElementById('fYear').value) || undefined;
+            const year = parseInt(document.getElementById('fYear').value) || null;
             const quantity = parseInt(document.getElementById('fQuantity').value);
             const campus = document.getElementById('fCampus').value;
             const status = document.getElementById('fStatus').value;
@@ -1922,6 +2045,42 @@
         }
 
         // ============================================================
+        // TOGGLE TABLE HEIGHT (Mở rộng / Thu gọn bảng)
+        // ============================================================
+        function toggleTableHeight() {
+            const wrapper = document.querySelector('#page-books .table-wrapper');
+            const btn = document.getElementById('toggleTableBtn');
+            if (!wrapper || !btn) return;
+            
+            if (wrapper.classList.contains('expanded')) {
+                wrapper.classList.remove('expanded');
+                btn.innerHTML = '<i class="fas fa-expand"></i> Mở rộng';
+            } else {
+                wrapper.classList.add('expanded');
+                btn.innerHTML = '<i class="fas fa-compress"></i> Thu gọn';
+            }
+        }
+
+        // ============================================================
+        // FLOATING BUTTON - Hiển thị khi cuộn trang
+        // ============================================================
+        function setupFloatingAddButton() {
+            const fab = document.getElementById('fabAddBook');
+            if (!fab) return;
+
+            window.addEventListener('scroll', () => {
+                const isAdmin = (currentUser === 'admin');
+                const booksPageVisible = document.getElementById('page-books').style.display !== 'none';
+                
+                if (isAdmin && booksPageVisible && window.scrollY > 200) {
+                    fab.classList.add('show');
+                } else {
+                    fab.classList.remove('show');
+                }
+            });
+        }
+
+        // ============================================================
         // RENDER ALL
         // ============================================================
         function renderAll() {
@@ -1939,6 +2098,7 @@
             document.getElementById('currentDate').textContent = getToday();
             await loadAppNameFromFirebase();
             checkSession();
+            setupFloatingAddButton();
         }
 
         init();
