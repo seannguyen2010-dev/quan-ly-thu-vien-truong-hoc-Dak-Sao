@@ -5,18 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title id="appTitle">📚 Quản Lý Thư Viện Trường Học</title>
     
-    <!-- Favicon - Biểu tượng quyển sách mở -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230b2a3e'/%3E%3Ctext x='50' y='55' font-size='45' text-anchor='middle' dominant-baseline='middle' fill='%23fcd34d'%3E📖%3C/text%3E%3C/svg%3E" />
     
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet" />
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <style>
-        /* ===== RESET & BASE ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Quicksand', sans-serif;
@@ -25,7 +20,6 @@
             min-height: 100vh;
             display: flex;
         }
-        /* ===== SIDEBAR ===== */
         .sidebar {
             width: 250px;
             background: linear-gradient(180deg, #0b2a3e 0%, #1a4b6d 100%);
@@ -46,16 +40,8 @@
             margin-bottom: 40px;
             color: #fff;
         }
-        .sidebar .logo i {
-            font-size: 32px;
-            color: #fcd34d;
-        }
-        .sidebar .logo h2 {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            line-height: 1.2;
-        }
+        .sidebar .logo i { font-size: 32px; color: #fcd34d; }
+        .sidebar .logo h2 { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2; }
         .sidebar .logo h2 span { color: #fcd34d; }
         .sidebar .nav-item {
             display: flex;
@@ -69,7 +55,6 @@
             font-size: 15px;
             cursor: pointer;
             transition: all 0.25s ease;
-            text-decoration: none;
         }
         .sidebar .nav-item i { width: 24px; font-size: 18px; text-align: center; }
         .sidebar .nav-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
@@ -106,12 +91,7 @@
         }
         .sidebar .campus-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
         .sidebar .campus-item.active { background: rgba(255,255,255,0.10); color: #fff; }
-        .sidebar .campus-item .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
+        .sidebar .campus-item .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
         .sidebar .campus-item .badge {
             margin-left: auto;
             background: rgba(255,255,255,0.12);
@@ -121,9 +101,7 @@
             font-weight: 600;
             color: #e2e8f0;
         }
-        /* ===== MAIN CONTENT ===== */
         .main { flex: 1; padding: 30px 35px; overflow-y: auto; }
-        /* ===== TOP BAR ===== */
         .topbar {
             display: flex;
             justify-content: space-between;
@@ -132,24 +110,10 @@
             flex-wrap: wrap;
             gap: 16px;
         }
-        .topbar .greeting h1 {
-            font-size: 26px;
-            font-weight: 700;
-            color: #0b2a3e;
-        }
+        .topbar .greeting h1 { font-size: 26px; font-weight: 700; color: #0b2a3e; }
         .topbar .greeting h1 i { color: #f59e0b; margin-right: 8px; }
-        .topbar .greeting p {
-            color: #64748b;
-            font-weight: 500;
-            font-size: 14px;
-            margin-top: 2px;
-        }
-        .topbar .actions {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+        .topbar .greeting p { color: #64748b; font-weight: 500; font-size: 14px; margin-top: 2px; }
+        .topbar .actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
         .topbar .actions .date-badge {
             background: #fff;
             padding: 8px 18px;
@@ -192,7 +156,6 @@
             transition: background 0.2s;
         }
         .user-info .logout-btn:hover { background: #fee2e2; }
-        /* ===== BANNER ===== */
         .banner {
             background: linear-gradient(135deg, #0b2a3e 0%, #1a4b6d 50%, #f59e0b 100%);
             border-radius: 24px;
@@ -221,11 +184,7 @@
         }
         .banner .banner-text h2 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
         .banner .banner-text p { font-size: 16px; opacity: 0.9; font-weight: 500; }
-        .banner .banner-icon {
-            font-size: 64px;
-            color: #fcd34d;
-            animation: float 3s ease-in-out infinite;
-        }
+        .banner .banner-icon { font-size: 64px; color: #fcd34d; animation: float 3s ease-in-out infinite; }
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
@@ -236,7 +195,6 @@
             .banner .banner-text h2 { font-size: 22px; }
             .banner .banner-icon { font-size: 48px; }
         }
-        /* ===== STATS CARDS ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -276,7 +234,6 @@
         .stat-card:nth-child(3) .icon { background: linear-gradient(135deg, #10b981, #34d399); }
         .stat-card:nth-child(4) { border-left-color: #8b5cf6; }
         .stat-card:nth-child(4) .icon { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
-        /* ===== SECTION HEADER ===== */
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -299,7 +256,6 @@
             cursor: pointer;
             transition: all 0.25s ease;
             font-family: 'Quicksand', sans-serif;
-            text-decoration: none;
         }
         .btn-primary { background: linear-gradient(135deg, #0b2a3e, #1a4b6d); color: #fff; box-shadow: 0 4px 12px rgba(11,42,62,0.25); }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(11,42,62,0.30); }
@@ -313,7 +269,6 @@
         .btn-outline:hover { border-color: #0b2a3e; background: rgba(11,42,62,0.04); }
         .btn-sm { padding: 6px 16px; font-size: 13px; }
         .btn-xs { padding: 4px 12px; font-size: 12px; }
-        /* ===== FLOATING ACTION BUTTON (Nút thêm sách nổi) ===== */
         .fab-add-book {
             position: fixed;
             bottom: 30px;
@@ -336,18 +291,8 @@
             transform: translateY(20px) scale(0.8);
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .fab-add-book.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
-        }
-        .fab-add-book:hover {
-            transform: translateY(-4px) scale(1.08);
-            box-shadow: 0 12px 32px rgba(16, 185, 129, 0.55);
-        }
-        .fab-add-book:active {
-            transform: translateY(-2px) scale(1.02);
-        }
+        .fab-add-book.show { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+        .fab-add-book:hover { transform: translateY(-4px) scale(1.08); box-shadow: 0 12px 32px rgba(16, 185, 129, 0.55); }
         .fab-add-book .tooltip {
             position: absolute;
             right: 75px;
@@ -363,7 +308,6 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.25s ease;
-            font-family: 'Quicksand', sans-serif;
             pointer-events: none;
         }
         .fab-add-book .tooltip::after {
@@ -375,24 +319,11 @@
             border: 6px solid transparent;
             border-left-color: #0b2a3e;
         }
-        .fab-add-book:hover .tooltip {
-            opacity: 1;
-            visibility: visible;
-            right: 80px;
-        }
+        .fab-add-book:hover .tooltip { opacity: 1; visibility: visible; right: 80px; }
         @media (max-width: 700px) {
-            .fab-add-book {
-                bottom: 20px;
-                right: 20px;
-                width: 54px;
-                height: 54px;
-                font-size: 22px;
-            }
-            .fab-add-book .tooltip {
-                display: none;
-            }
+            .fab-add-book { bottom: 20px; right: 20px; width: 54px; height: 54px; font-size: 22px; }
+            .fab-add-book .tooltip { display: none; }
         }
-        /* ===== FILTER BAR ===== */
         .filter-bar {
             display: flex;
             flex-wrap: wrap;
@@ -404,16 +335,8 @@
             margin-bottom: 24px;
             align-items: center;
         }
-        .filter-bar .filter-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .filter-bar .filter-group label {
-            font-weight: 600;
-            font-size: 14px;
-            color: #475569;
-        }
+        .filter-bar .filter-group { display: flex; align-items: center; gap: 8px; }
+        .filter-bar .filter-group label { font-weight: 600; font-size: 14px; color: #475569; }
         .filter-bar select,
         .filter-bar input {
             padding: 8px 14px;
@@ -439,70 +362,127 @@
             transition: border 0.2s ease;
         }
         .filter-bar .search-box:focus-within { border-color: #0b2a3e; }
-        .filter-bar .search-box input {
-            border: none;
-            background: transparent;
-            padding: 8px 4px;
-            flex: 1;
-            min-width: 140px;
-        }
+        .filter-bar .search-box input { border: none; background: transparent; padding: 8px 4px; flex: 1; min-width: 140px; }
         .filter-bar .search-box i { color: #94a3b8; }
-        /* ===== TABLE ===== */
-        .table-wrapper {
+        
+        /* ===== GRADE GROUP (Khối lớp) ===== */
+        .grade-group {
             background: #fff;
             border-radius: 20px;
-            padding: 0 0 8px 0;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            margin-bottom: 16px;
             overflow: hidden;
-            overflow-x: auto;
-            max-height: 600px;
+            transition: box-shadow 0.2s ease;
+        }
+        .grade-group:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.07); }
+        .grade-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 22px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+        .grade-header:hover { background: #fafcff; }
+        .grade-header .chevron {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0b2a3e, #1a4b6d);
+            color: #fff;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        .grade-group.collapsed .grade-header .chevron { transform: rotate(-90deg); }
+        .grade-header .grade-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #0b2a3e;
+        }
+        .grade-header .grade-count {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: #fff;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(245,158,11,0.3);
+        }
+        .grade-header .grade-total {
+            margin-left: auto;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .grade-header .grade-total span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .grade-body {
+            max-height: 2000px;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            border-top: 1px solid #f1f5f9;
+        }
+        .grade-group.collapsed .grade-body {
+            max-height: 0;
+            border-top: none;
+        }
+        .grade-body .table-inner {
+            max-height: 500px;
             overflow-y: auto;
-            transition: max-height 0.3s ease;
+            overflow-x: auto;
         }
-        .table-wrapper.expanded {
-            max-height: none;
-        }
-        .table-wrapper table thead th {
-            position: sticky;
-            top: 0;
-            z-index: 2;
-            background: #f1f6fa;
-        }
-        .table-wrapper::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        .table-wrapper::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 10px;
-        }
-        .table-wrapper::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-        .table-wrapper::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-        table { width: 100%; border-collapse: collapse; font-size: 14px; }
-        table thead { background: #f1f6fa; }
-        table thead th {
-            padding: 16px 18px;
+        .grade-body table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .grade-body table thead { background: #f8fafc; }
+        .grade-body table thead th {
+            padding: 12px 18px;
             text-align: left;
             font-weight: 700;
             color: #1e2b3a;
-            font-size: 13px;
+            font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.3px;
             white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: #f8fafc;
         }
-        table tbody td {
-            padding: 14px 18px;
+        .grade-body table tbody td {
+            padding: 12px 18px;
             border-bottom: 1px solid #f1f5f9;
             color: #1e2b3a;
             vertical-align: middle;
         }
-        table tbody tr:hover { background: #fafcff; }
-        table tbody tr:last-child td { border-bottom: none; }
+        .grade-body table tbody tr:hover { background: #fafcff; }
+        .grade-body table tbody tr:last-child td { border-bottom: none; }
+        .grade-body::-webkit-scrollbar, .grade-body .table-inner::-webkit-scrollbar { width: 8px; height: 8px; }
+        .grade-body::-webkit-scrollbar-track, .grade-body .table-inner::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
+        .grade-body::-webkit-scrollbar-thumb, .grade-body .table-inner::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .grade-body::-webkit-scrollbar-thumb:hover, .grade-body .table-inner::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Highlight grade-specific color */
+        .grade-group[data-grade="1"] .grade-header .chevron { background: linear-gradient(135deg, #ec4899, #f472b6); }
+        .grade-group[data-grade="2"] .grade-header .chevron { background: linear-gradient(135deg, #f97316, #fb923c); }
+        .grade-group[data-grade="3"] .grade-header .chevron { background: linear-gradient(135deg, #eab308, #facc15); }
+        .grade-group[data-grade="4"] .grade-header .chevron { background: linear-gradient(135deg, #84cc16, #a3e635); }
+        .grade-group[data-grade="5"] .grade-header .chevron { background: linear-gradient(135deg, #10b981, #34d399); }
+        .grade-group[data-grade="6"] .grade-header .chevron { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+        .grade-group[data-grade="7"] .grade-header .chevron { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+        .grade-group[data-grade="8"] .grade-header .chevron { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+        .grade-group[data-grade="9"] .grade-header .chevron { background: linear-gradient(135deg, #d946ef, #e879f9); }
+        .grade-group[data-grade="unknown"] .grade-header .chevron { background: linear-gradient(135deg, #64748b, #94a3b8); }
+        
         .badge-campus {
             display: inline-block;
             padding: 4px 14px;
@@ -528,7 +508,72 @@
         .badge-status.dang-muon { background: #fef3c7; color: #92400e; }
         .action-btns { display: flex; gap: 6px; flex-wrap: wrap; }
         .action-btns .btn { padding: 5px 12px; font-size: 13px; border-radius: 8px; }
-        /* ===== MODAL ===== */
+        
+        /* View toggle button group */
+        .view-toggle-group {
+            display: inline-flex;
+            background: #fff;
+            border-radius: 30px;
+            padding: 3px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .view-toggle-group button {
+            padding: 7px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 25px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            color: #64748b;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .view-toggle-group button.active {
+            background: linear-gradient(135deg, #0b2a3e, #1a4b6d);
+            color: #fff;
+        }
+        
+        .table-wrapper {
+            background: #fff;
+            border-radius: 20px;
+            padding: 0 0 8px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            overflow: hidden;
+            overflow-x: auto;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .table-wrapper table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: #f1f6fa;
+        }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table thead { background: #f1f6fa; }
+        table thead th {
+            padding: 16px 18px;
+            text-align: left;
+            font-weight: 700;
+            color: #1e2b3a;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+        table tbody td {
+            padding: 14px 18px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #1e2b3a;
+            vertical-align: middle;
+        }
+        table tbody tr:hover { background: #fafcff; }
+        table tbody tr:last-child td { border-bottom: none; }
+        
         .modal-overlay {
             display: none;
             position: fixed;
@@ -607,7 +652,6 @@
             padding-top: 18px;
             border-top: 1px solid #f1f5f9;
         }
-        /* ===== EMPTY STATE ===== */
         .empty-state {
             text-align: center;
             padding: 50px 20px;
@@ -615,7 +659,7 @@
         }
         .empty-state i { font-size: 56px; color: #cbd5e1; margin-bottom: 12px; }
         .empty-state p { font-size: 16px; font-weight: 500; }
-        /* ===== RESPONSIVE ===== */
+        
         @media (max-width: 900px) {
             .sidebar { width: 200px; padding: 20px 14px; }
             .sidebar .logo h2 { font-size: 16px; }
@@ -644,6 +688,9 @@
             .user-info { padding: 4px 12px 4px 16px; font-size: 13px; }
             .topbar .actions { flex-wrap: wrap; }
             .table-wrapper { max-height: 500px; }
+            .grade-header { padding: 12px 16px; gap: 10px; }
+            .grade-header .grade-title { font-size: 15px; }
+            .grade-header .grade-total { display: none; }
         }
         @media (max-width: 480px) {
             .sidebar .nav-item span { display: none; }
@@ -651,11 +698,10 @@
             .sidebar .campus-item span:not(.dot) { display: none; }
             .sidebar .campus-item .badge { display: none; }
         }
-        /* ===== SCROLLBAR ===== */
         .sidebar::-webkit-scrollbar, .modal::-webkit-scrollbar { width: 4px; }
         .sidebar::-webkit-scrollbar-track, .modal::-webkit-scrollbar-track { background: transparent; }
         .sidebar::-webkit-scrollbar-thumb, .modal::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
-        /* ===== TOAST ===== */
+        
         .toast-container {
             position: fixed;
             bottom: 30px;
@@ -693,7 +739,7 @@
             padding: 0 4px;
         }
         .toast .toast-close:hover { color: #fff; }
-        /* ===== LOGIN OVERLAY ===== */
+        
         #loginOverlay {
             position: fixed;
             inset: 0;
@@ -753,7 +799,6 @@
             text-align: center;
             min-height: 24px;
         }
-        /* ===== BORROW CARD ===== */
         .borrow-card {
             background: #fff;
             border-radius: 16px;
@@ -780,7 +825,6 @@
 </head>
 <body>
 
-    <!-- ===== LOGIN OVERLAY ===== -->
     <div id="loginOverlay" class="show">
         <div class="login-box">
             <div class="logo">
@@ -803,7 +847,6 @@
         </div>
     </div>
 
-    <!-- ===== SIDEBAR ===== -->
     <aside class="sidebar" id="sidebar">
         <div class="logo">
             <i class="fas fa-book-open"></i>
@@ -848,9 +891,7 @@
         </div>
     </aside>
 
-    <!-- ===== MAIN ===== -->
     <main class="main" id="mainContent">
-        <!-- TOPBAR -->
         <div class="topbar">
             <div class="greeting">
                 <h1><i class="fas fa-graduation-cap"></i> <span id="pageTitle">Bảng điều khiển</span></h1>
@@ -870,7 +911,6 @@
             </div>
         </div>
 
-        <!-- ===== PAGE: HOME ===== -->
         <div id="page-home">
             <div class="banner">
                 <div class="banner-text">
@@ -931,13 +971,20 @@
             </div>
         </div>
 
-        <!-- ===== PAGE: BOOKS ===== -->
         <div id="page-books" style="display:none;">
             <div class="section-header">
                 <h2><i class="fas fa-books"></i> Quản lý sách</h2>
-                <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                    <button class="btn btn-outline btn-sm" id="toggleTableBtn" onclick="toggleTableHeight()">
-                        <i class="fas fa-expand"></i> Mở rộng
+                <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                    <div class="view-toggle-group">
+                        <button id="btnViewGrouped" class="active" onclick="setViewMode('grouped')">
+                            <i class="fas fa-layer-group"></i> Khối lớp
+                        </button>
+                        <button id="btnViewFlat" onclick="setViewMode('flat')">
+                            <i class="fas fa-list"></i> Bảng
+                        </button>
+                    </div>
+                    <button class="btn btn-outline btn-sm" id="toggleAllGroupsBtn" onclick="toggleAllGroups()">
+                        <i class="fas fa-compress-alt"></i> Đóng tất cả
                     </button>
                     <button class="btn btn-success" id="addBookBtn" onclick="openAddModal()">
                         <i class="fas fa-plus"></i> Thêm sách mới
@@ -952,6 +999,21 @@
                         <option value="main">Chính (THCS)</option>
                         <option value="branch1">Lẻ 1 (TH)</option>
                         <option value="branch2">Lẻ 2 (THCS)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <select id="filterGrade">
+                        <option value="all">Tất cả khối lớp</option>
+                        <option value="1">Khối 1</option>
+                        <option value="2">Khối 2</option>
+                        <option value="3">Khối 3</option>
+                        <option value="4">Khối 4</option>
+                        <option value="5">Khối 5</option>
+                        <option value="6">Khối 6</option>
+                        <option value="7">Khối 7</option>
+                        <option value="8">Khối 8</option>
+                        <option value="9">Khối 9</option>
+                        <option value="unknown">Không xác định</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -970,12 +1032,18 @@
                     <i class="fas fa-undo"></i> Đặt lại
                 </button>
             </div>
-            <div class="table-wrapper">
+            
+            <!-- Chế độ xem nhóm theo khối -->
+            <div id="booksGroupedView"></div>
+            
+            <!-- Chế độ xem bảng thường -->
+            <div class="table-wrapper" id="booksFlatView" style="display:none;">
                 <table>
                     <thead>
                         <tr>
                             <th>Tên sách</th>
                             <th>Tác giả</th>
+                            <th>Khối</th>
                             <th>ISBN</th>
                             <th>NXB</th>
                             <th>Điểm trường</th>
@@ -989,7 +1057,6 @@
             </div>
         </div>
 
-        <!-- ===== PAGE: BORROW ===== -->
         <div id="page-borrow" style="display:none;">
             <div class="section-header">
                 <h2><i class="fas fa-hand-holding-heart"></i> Mượn / Trả sách</h2>
@@ -1017,7 +1084,6 @@
             <div id="borrowList"></div>
         </div>
 
-        <!-- ===== PAGE: SETTINGS ===== -->
         <div id="page-settings" style="display:none;">
             <div class="section-header">
                 <h2><i class="fas fa-cog"></i> Cài đặt</h2>
@@ -1055,7 +1121,6 @@
         </div>
     </main>
 
-    <!-- ===== MODAL: Sách ===== -->
     <div class="modal-overlay" id="bookModal">
         <div class="modal">
             <div class="modal-header">
@@ -1067,7 +1132,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tên sách <span class="required">*</span></label>
-                        <input type="text" id="fTitle" placeholder="Nhập tên sách" required />
+                        <input type="text" id="fTitle" placeholder="VD: Toán 7 - Tập một" required oninput="autoDetectGrade()" />
                     </div>
                     <div class="form-group">
                         <label>Tác giả <span class="required">*</span></label>
@@ -1076,25 +1141,40 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>ISBN</label>
+                        <label>Khối lớp</label>
+                        <select id="fGrade">
+                            <option value="">— Không xác định —</option>
+                            <option value="1">Khối 1</option>
+                            <option value="2">Khối 2</option>
+                            <option value="3">Khối 3</option>
+                            <option value="4">Khối 4</option>
+                            <option value="5">Khối 5</option>
+                            <option value="6">Khối 6</option>
+                            <option value="7">Khối 7</option>
+                            <option value="8">Khối 8</option>
+                            <option value="9">Khối 9</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Mã ISBN</label>
                         <input type="text" id="fIsbn" placeholder="VD: 978-3-16-148410-0" />
                     </div>
+                </div>
+                <div class="form-row">
                     <div class="form-group">
                         <label>Nhà xuất bản</label>
                         <input type="text" id="fPublisher" placeholder="Nhà xuất bản" />
                     </div>
-                </div>
-                <div class="form-row">
                     <div class="form-group">
                         <label>Năm xuất bản</label>
                         <input type="number" id="fYear" placeholder="2024" min="1900" max="2099" />
                     </div>
+                </div>
+                <div class="form-row">
                     <div class="form-group">
                         <label>Số lượng <span class="required">*</span></label>
                         <input type="number" id="fQuantity" placeholder="Số lượng" min="1" required />
                     </div>
-                </div>
-                <div class="form-row">
                     <div class="form-group">
                         <label>Điểm trường <span class="required">*</span></label>
                         <select id="fCampus" required>
@@ -1103,14 +1183,14 @@
                             <option value="branch2">🏫 Lẻ 2 (THCS)</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>Trạng thái <span class="required">*</span></label>
-                        <select id="fStatus" required>
-                            <option value="available">✅ Có sẵn</option>
-                            <option value="borrowed">📤 Đang mượn</option>
-                            <option value="maintenance">🔧 Bảo trì</option>
-                        </select>
-                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Trạng thái <span class="required">*</span></label>
+                    <select id="fStatus" required>
+                        <option value="available">✅ Có sẵn</option>
+                        <option value="borrowed">📤 Đang mượn</option>
+                        <option value="maintenance">🔧 Bảo trì</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Mô tả / Ghi chú</label>
@@ -1126,7 +1206,6 @@
         </div>
     </div>
 
-    <!-- ===== MODAL: Mượn sách ===== -->
     <div class="modal-overlay" id="borrowModal">
         <div class="modal">
             <div class="modal-header">
@@ -1177,18 +1256,16 @@
         </div>
     </div>
 
-    <!-- ===== FLOATING ACTION BUTTON: Thêm sách nhanh ===== -->
     <button class="fab-add-book" id="fabAddBook" onclick="openAddModal()" title="Thêm sách mới">
         <i class="fas fa-plus"></i>
         <span class="tooltip">Thêm sách mới</span>
     </button>
 
-    <!-- ===== TOAST CONTAINER ===== -->
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
         // ============================================================
-        // CẤU HÌNH FIREBASE
+        // FIREBASE
         // ============================================================
         const firebaseConfig = {
             apiKey: "AIzaSyAC1kah9MCMO4bnKeLkn86gtCPgr-F5WOc",
@@ -1215,9 +1292,11 @@
         let books = [];
         let borrows = [];
         let currentCampus = 'all';
+        let viewMode = 'grouped'; // 'grouped' hoặc 'flat'
+        let collapsedGrades = new Set(); // Các khối đang đóng
 
         // ============================================================
-        // APP NAME - LƯU TRÊN FIRESTORE
+        // APP NAME
         // ============================================================
         async function loadAppNameFromFirebase() {
             try {
@@ -1268,9 +1347,6 @@
             document.getElementById('sidebarAppName').innerHTML = name.replace('School', '<span>School</span>') || 'Thư Viện <span>School</span>';
         }
 
-        // ============================================================
-        // AUTHENTICATION
-        // ============================================================
         function getAdminPassword() {
             let pwd = localStorage.getItem(ADMIN_KEY);
             if (!pwd) { pwd = 'admin'; localStorage.setItem(ADMIN_KEY, pwd); }
@@ -1279,7 +1355,35 @@
         function setAdminPassword(newPwd) { localStorage.setItem(ADMIN_KEY, newPwd); }
 
         // ============================================================
-        // FIREBASE CRUD - BOOKS
+        // AUTO-DETECT GRADE FROM TITLE
+        // ============================================================
+        function detectGradeFromTitle(title) {
+            if (!title) return '';
+            const m = title.match(/(\d)/);
+            if (m) {
+                const n = parseInt(m[1]);
+                if (n >= 1 && n <= 9) return String(n);
+            }
+            return '';
+        }
+
+        function autoDetectGrade() {
+            const title = document.getElementById('fTitle').value.trim();
+            const gradeSelect = document.getElementById('fGrade');
+            // Chỉ tự động điền nếu người dùng chưa chọn
+            if (!gradeSelect.value) {
+                const detected = detectGradeFromTitle(title);
+                if (detected) gradeSelect.value = detected;
+            }
+        }
+
+        function getGradeLabel(grade) {
+            if (!grade || grade === 'unknown') return 'Khác';
+            return `Khối ${grade}`;
+        }
+
+        // ============================================================
+        // FIREBASE CRUD
         // ============================================================
         async function loadBooksFromFirebase() {
             try {
@@ -1342,9 +1446,6 @@
             }
         }
 
-        // ============================================================
-        // FIREBASE CRUD - BORROWS
-        // ============================================================
         async function loadBorrowsFromFirebase() {
             try {
                 const snapshot = await db.collection('borrows').orderBy('createdAt', 'asc').get();
@@ -1445,9 +1546,6 @@
         function getToday() { return new Date().toLocaleDateString('vi-VN', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' }); }
         function formatDate(dateStr) { if (!dateStr) return ''; const d = new Date(dateStr); return d.toLocaleDateString('vi-VN'); }
 
-        // ============================================================
-        // TOAST
-        // ============================================================
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
@@ -1531,9 +1629,6 @@
             document.getElementById('sidebar').style.opacity = '1';
         }
 
-        // ============================================================
-        // NAVIGATION
-        // ============================================================
         function navigateTo(page) {
             document.querySelectorAll('.sidebar .nav-item').forEach(el => el.classList.remove('active'));
             document.querySelector(`.sidebar .nav-item[data-page="${page}"]`)?.classList.add('active');
@@ -1546,7 +1641,7 @@
             document.getElementById('pageTitle').textContent = titles[page] || 'Trang';
             const subtitles = {
                 home: 'Tổng quan thư viện trường học',
-                books: 'Thêm, sửa, xóa và quản lý sách',
+                books: 'Thêm, sửa, xóa và quản lý sách theo khối lớp',
                 borrow: 'Quản lý phiếu mượn và trả sách',
                 settings: 'Cài đặt ứng dụng và mật khẩu'
             };
@@ -1555,7 +1650,6 @@
             if (page === 'books') renderBooks();
             if (page === 'borrow') renderBorrowList();
 
-            // Ẩn nút nổi khi chuyển trang
             const fab = document.getElementById('fabAddBook');
             if (fab) fab.classList.remove('show');
         }
@@ -1628,16 +1722,26 @@
         }
 
         // ============================================================
-        // RENDER: BOOKS (Đã xóa cột #)
+        // GET FILTERED BOOKS
         // ============================================================
-        function renderBooks() {
+        function getFilteredBooks() {
             const campusFilter = document.getElementById('filterCampus').value;
+            const gradeFilter = document.getElementById('filterGrade').value;
             const statusFilter = document.getElementById('filterStatus').value;
             const searchTerm = document.getElementById('searchBooks').value.toLowerCase().trim();
 
             let filtered = books;
             if (campusFilter !== 'all') filtered = filtered.filter(b => b.campus === campusFilter);
             if (statusFilter !== 'all') filtered = filtered.filter(b => b.status === statusFilter);
+            
+            if (gradeFilter !== 'all') {
+                if (gradeFilter === 'unknown') {
+                    filtered = filtered.filter(b => !b.grade || b.grade === '');
+                } else {
+                    filtered = filtered.filter(b => String(b.grade) === String(gradeFilter));
+                }
+            }
+            
             if (searchTerm) {
                 filtered = filtered.filter(b =>
                     b.title.toLowerCase().includes(searchTerm) ||
@@ -1645,16 +1749,135 @@
                     (b.isbn && b.isbn.includes(searchTerm))
                 );
             }
+            return filtered;
+        }
 
+        // ============================================================
+        // RENDER: BOOKS (dispatch theo viewMode)
+        // ============================================================
+        function renderBooks() {
+            const filtered = getFilteredBooks();
+            if (viewMode === 'grouped') {
+                renderBooksGrouped(filtered);
+                document.getElementById('booksGroupedView').style.display = 'block';
+                document.getElementById('booksFlatView').style.display = 'none';
+            } else {
+                renderBooksFlat(filtered);
+                document.getElementById('booksGroupedView').style.display = 'none';
+                document.getElementById('booksFlatView').style.display = 'block';
+            }
+        }
+
+        // ============================================================
+        // RENDER: GROUPED BY GRADE
+        // ============================================================
+        function renderBooksGrouped(filtered) {
+            const container = document.getElementById('booksGroupedView');
+            
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="table-wrapper"><div class="empty-state"><i class="fas fa-book-open"></i><p>Không tìm thấy sách nào</p></div></div>`;
+                return;
+            }
+
+            // Gom nhóm theo khối
+            const groups = {};
+            filtered.forEach(b => {
+                const g = (b.grade && b.grade !== '') ? String(b.grade) : 'unknown';
+                if (!groups[g]) groups[g] = [];
+                groups[g].push(b);
+            });
+
+            // Sắp xếp khối: 1, 2, ..., 9, unknown
+            const sortedGrades = Object.keys(groups).sort((a, b) => {
+                if (a === 'unknown') return 1;
+                if (b === 'unknown') return -1;
+                return parseInt(a) - parseInt(b);
+            });
+
+            const isAdmin = (currentUser === 'admin');
+            
+            container.innerHTML = sortedGrades.map(grade => {
+                const booksInGrade = groups[grade];
+                const isCollapsed = collapsedGrades.has(grade);
+                const gradeName = getGradeLabel(grade);
+                
+                // Đếm thống kê
+                const totalQty = booksInGrade.reduce((sum, b) => sum + b.quantity, 0);
+                const totalAvail = booksInGrade.reduce((sum, b) => sum + getAvailableQuantity(b.id), 0);
+                const totalBorrowed = totalQty - totalAvail;
+
+                const rows = booksInGrade.map(b => {
+                    const available = getAvailableQuantity(b.id);
+                    const actions = isAdmin ? `
+                        <div class="action-btns">
+                            <button class="btn btn-warning btn-sm" onclick="openEditModal('${b.id}')"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteBook('${b.id}')"><i class="fas fa-trash"></i></button>
+                        </div>
+                    ` : `<span style="color:#94a3b8; font-size:13px;">Chỉ xem</span>`;
+                    return `
+                        <tr>
+                            <td><strong>${b.title}</strong></td>
+                            <td>${b.author}</td>
+                            <td>${b.isbn || '—'}</td>
+                            <td>${b.publisher || '—'}</td>
+                            <td>${getCampusBadge(b.campus)}</td>
+                            <td>${available} / ${b.quantity}</td>
+                            <td>${getStatusBadge(b.status)}</td>
+                            <td>${actions}</td>
+                        </tr>
+                    `;
+                }).join('');
+
+                return `
+                    <div class="grade-group ${isCollapsed ? 'collapsed' : ''}" data-grade="${grade}">
+                        <div class="grade-header" onclick="toggleGrade('${grade}')">
+                            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+                            <span class="grade-title">📚 ${gradeName}</span>
+                            <span class="grade-count">${booksInGrade.length} đầu sách</span>
+                            <div class="grade-total">
+                                <span>📖 Tổng: <strong>${totalQty}</strong></span>
+                                <span>✅ Sẵn: <strong>${totalAvail}</strong></span>
+                                <span>📤 Mượn: <strong>${totalBorrowed}</strong></span>
+                            </div>
+                        </div>
+                        <div class="grade-body">
+                            <div class="table-inner">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Tên sách</th>
+                                            <th>Tác giả</th>
+                                            <th>ISBN</th>
+                                            <th>NXB</th>
+                                            <th>Điểm trường</th>
+                                            <th>Số lượng</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>${rows}</tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ============================================================
+        // RENDER: FLAT TABLE (Dạng bảng thường)
+        // ============================================================
+        function renderBooksFlat(filtered) {
             const tbody = document.getElementById('booksTable');
             if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" class="empty-state"><i class="fas fa-book-open"></i><p>Không tìm thấy sách nào</p></td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="9" class="empty-state"><i class="fas fa-book-open"></i><p>Không tìm thấy sách nào</p></td></tr>`;
                 return;
             }
 
             const isAdmin = (currentUser === 'admin');
             tbody.innerHTML = filtered.map((b) => {
                 const available = getAvailableQuantity(b.id);
+                const gradeName = getGradeLabel(b.grade);
                 const actions = isAdmin ? `
                     <div class="action-btns">
                         <button class="btn btn-warning btn-sm" onclick="openEditModal('${b.id}')"><i class="fas fa-edit"></i></button>
@@ -1665,6 +1888,7 @@
                     <tr>
                         <td><strong>${b.title}</strong></td>
                         <td>${b.author}</td>
+                        <td><span class="badge-campus ${b.grade ? 'main' : ''}" style="${!b.grade ? 'background:#64748b;' : ''}">${gradeName}</span></td>
                         <td>${b.isbn || '—'}</td>
                         <td>${b.publisher || '—'}</td>
                         <td>${getCampusBadge(b.campus)}</td>
@@ -1674,6 +1898,49 @@
                     </tr>
                 `;
             }).join('');
+        }
+
+        // ============================================================
+        // GRADE GROUP TOGGLE
+        // ============================================================
+        function toggleGrade(grade) {
+            if (collapsedGrades.has(grade)) {
+                collapsedGrades.delete(grade);
+            } else {
+                collapsedGrades.add(grade);
+            }
+            // Re-render only the grouping
+            const filtered = getFilteredBooks();
+            renderBooksGrouped(filtered);
+        }
+
+        function toggleAllGroups() {
+            const filtered = getFilteredBooks();
+            const groups = {};
+            filtered.forEach(b => {
+                const g = (b.grade && b.grade !== '') ? String(b.grade) : 'unknown';
+                if (!groups[g]) groups[g] = [];
+                groups[g].push(b);
+            });
+            const grades = Object.keys(groups);
+            
+            if (collapsedGrades.size < grades.length) {
+                // Đóng tất cả
+                grades.forEach(g => collapsedGrades.add(g));
+                document.getElementById('toggleAllGroupsBtn').innerHTML = '<i class="fas fa-expand-alt"></i> Mở tất cả';
+            } else {
+                // Mở tất cả
+                collapsedGrades.clear();
+                document.getElementById('toggleAllGroupsBtn').innerHTML = '<i class="fas fa-compress-alt"></i> Đóng tất cả';
+            }
+            renderBooksGrouped(filtered);
+        }
+
+        function setViewMode(mode) {
+            viewMode = mode;
+            document.getElementById('btnViewGrouped').classList.toggle('active', mode === 'grouped');
+            document.getElementById('btnViewFlat').classList.toggle('active', mode === 'flat');
+            renderBooks();
         }
 
         // ============================================================
@@ -1730,6 +1997,7 @@
         // FILTERS
         // ============================================================
         document.getElementById('filterCampus').addEventListener('change', renderBooks);
+        document.getElementById('filterGrade').addEventListener('change', renderBooks);
         document.getElementById('filterStatus').addEventListener('change', renderBooks);
         document.getElementById('searchBooks').addEventListener('input', renderBooks);
         document.getElementById('borrowFilterStatus').addEventListener('change', renderBorrowList);
@@ -1737,6 +2005,7 @@
 
         function resetFilters() {
             document.getElementById('filterCampus').value = 'all';
+            document.getElementById('filterGrade').value = 'all';
             document.getElementById('filterStatus').value = 'all';
             document.getElementById('searchBooks').value = '';
             document.querySelectorAll('.sidebar .campus-item').forEach(el => el.classList.remove('active'));
@@ -1774,6 +2043,7 @@
             document.getElementById('editId').value = id;
             document.getElementById('fTitle').value = b.title;
             document.getElementById('fAuthor').value = b.author;
+            document.getElementById('fGrade').value = b.grade || '';
             document.getElementById('fIsbn').value = b.isbn || '';
             document.getElementById('fPublisher').value = b.publisher || '';
             document.getElementById('fYear').value = b.year || '';
@@ -1789,9 +2059,6 @@
             el.addEventListener('click', (e) => { if (e.target === e.currentTarget) el.classList.remove('show'); });
         });
 
-        // ============================================================
-        // SAVE BOOK (Firebase) - ĐÃ SỬA LỖI UNDEFINED
-        // ============================================================
         async function saveBook(e) {
             e.preventDefault();
             if (currentUser !== 'admin') {
@@ -1802,6 +2069,7 @@
             const id = document.getElementById('editId').value;
             const title = document.getElementById('fTitle').value.trim();
             const author = document.getElementById('fAuthor').value.trim();
+            const grade = document.getElementById('fGrade').value || '';
             const isbn = document.getElementById('fIsbn').value.trim();
             const publisher = document.getElementById('fPublisher').value.trim();
             const year = parseInt(document.getElementById('fYear').value) || null;
@@ -1815,7 +2083,10 @@
                 return;
             }
 
-            const bookData = { title, author, isbn, publisher, year, quantity, campus, status, description };
+            // Nếu không có grade, tự động nhận diện
+            const finalGrade = grade || detectGradeFromTitle(title) || '';
+
+            const bookData = { title, author, grade: finalGrade, isbn, publisher, year, quantity, campus, status, description };
 
             const submitBtn = document.getElementById('modalSubmitBtn');
             const originalHtml = submitBtn.innerHTML;
@@ -1825,18 +2096,12 @@
             try {
                 if (id) {
                     const success = await updateBookInFirebase(id, bookData);
-                    if (success) {
-                        showToast('✅ Đã cập nhật sách thành công!', 'success');
-                    } else {
-                        showToast('❌ Lỗi cập nhật sách!', 'error');
-                    }
+                    if (success) showToast('✅ Đã cập nhật sách thành công!', 'success');
+                    else showToast('❌ Lỗi cập nhật sách!', 'error');
                 } else {
                     const newBook = await addBookToFirebase(bookData);
-                    if (newBook) {
-                        showToast('📚 Đã thêm sách mới thành công!', 'success');
-                    } else {
-                        showToast('❌ Lỗi thêm sách!', 'error');
-                    }
+                    if (newBook) showToast('📚 Đã thêm sách mới thành công!', 'success');
+                    else showToast('❌ Lỗi thêm sách!', 'error');
                 }
                 closeModal('bookModal');
             } catch (err) {
@@ -1848,9 +2113,6 @@
             }
         }
 
-        // ============================================================
-        // DELETE BOOK (Firebase)
-        // ============================================================
         async function deleteBook(id) {
             if (currentUser !== 'admin') { showToast('Bạn không có quyền xóa sách.', 'error'); return; }
             const book = books.find(b => b.id === id);
@@ -1867,7 +2129,7 @@
         }
 
         // ============================================================
-        // BORROW BOOK (Firebase)
+        // BORROW BOOK
         // ============================================================
         document.getElementById('borrowCampus').addEventListener('change', filterBooksByCampus);
 
@@ -1885,8 +2147,8 @@
                     const opt = document.createElement('option');
                     opt.value = b.id;
                     let label = `${b.title} (còn ${avail}/${b.quantity})`;
+                    if (b.grade) label += ` - Khối ${b.grade}`;
                     if (b.author) label += ` - Tác giả: ${b.author}`;
-                    if (b.publisher) label += ` - NXB: ${b.publisher}`;
                     opt.textContent = label;
                     select.appendChild(opt);
                 }
@@ -1978,9 +2240,6 @@
             }
         }
 
-        // ============================================================
-        // RETURN BOOK (Firebase)
-        // ============================================================
         async function returnBook(borrowId) {
             if (currentUser !== 'admin') { showToast('Bạn không có quyền trả sách.', 'error'); return; }
             const borrow = borrows.find(b => b.id === borrowId);
@@ -2005,7 +2264,7 @@
         }
 
         // ============================================================
-        // CHANGE PASSWORD
+        // CHANGE PASSWORD / APP NAME
         // ============================================================
         function changePassword(e) {
             e.preventDefault();
@@ -2024,9 +2283,6 @@
             showToast('Mật khẩu đã được cập nhật.', 'success');
         }
 
-        // ============================================================
-        // CHANGE APP NAME (cập nhật lên Firestore)
-        // ============================================================
         async function changeAppName(e) {
             e.preventDefault();
             if (currentUser !== 'admin') { showToast('Chỉ quản trị viên mới có thể đổi tên ứng dụng.', 'error'); return; }
@@ -2045,24 +2301,7 @@
         }
 
         // ============================================================
-        // TOGGLE TABLE HEIGHT (Mở rộng / Thu gọn bảng)
-        // ============================================================
-        function toggleTableHeight() {
-            const wrapper = document.querySelector('#page-books .table-wrapper');
-            const btn = document.getElementById('toggleTableBtn');
-            if (!wrapper || !btn) return;
-            
-            if (wrapper.classList.contains('expanded')) {
-                wrapper.classList.remove('expanded');
-                btn.innerHTML = '<i class="fas fa-expand"></i> Mở rộng';
-            } else {
-                wrapper.classList.add('expanded');
-                btn.innerHTML = '<i class="fas fa-compress"></i> Thu gọn';
-            }
-        }
-
-        // ============================================================
-        // FLOATING BUTTON - Hiển thị khi cuộn trang
+        // FLOATING BUTTON
         // ============================================================
         function setupFloatingAddButton() {
             const fab = document.getElementById('fabAddBook');
@@ -2071,7 +2310,6 @@
             window.addEventListener('scroll', () => {
                 const isAdmin = (currentUser === 'admin');
                 const booksPageVisible = document.getElementById('page-books').style.display !== 'none';
-                
                 if (isAdmin && booksPageVisible && window.scrollY > 200) {
                     fab.classList.add('show');
                 } else {
